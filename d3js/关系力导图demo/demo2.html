@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <script src=" https://cdn.bootcss.com/jquery/1.12.2/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0
+        }
+        .node{
+            cursor:pointer;
+            background: red;
+            border-radius:50%; overflow:hidden;
+        }
+        .circle{
+
+        }
+        .nodetext {
+            pointer-events: none;
+            font: 12px sans-serif;
+        }
+        .linetext {
+            font-size: 12px;
+        }
+        .link.inactive,
+        .linetext.inactive,
+        .node.inactive image,
+            /*失效节点的透明度  （未被选中的节点）*/
+        .node.inactive text {
+            opacity: 0.0;
+        }
+        /*资料弹窗*/
+        .tooltip {
+            font-family: "microsoft yahei", "simsun";
+            font-size: 12px;
+            width: 170px;
+            height: auto;
+            z-index: 2;
+            position: absolute;
+            background: #fff;
+            opacity: 0.5;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+        }
+        .tooltip .title {
+            color: #fff;
+            padding: 5px;
+            font-size: 14px;
+            background-color: #337ab7;
+            border-radius: 5px 5px 0 0;
+        }
+        .tooltip .detail-info {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #337ab7;
+        }
+        .tooltip .detail-info td {
+            padding: 3px 5px;
+            color: #666;
+            vertical-align: middle;
+        }
+        .tooltip .detail-info tr:nth-of-type(odd) {
+            background: #f9f9f9;
+        }
+        .tooltip .detail-info td.td-label {
+            color: #333;
+            width:42px;
+        }
+        .tooltip .detail-info td a {
+            color: #666
+        }
+        .tooltip .cm-btn{cursor:pointer;}
+        .tooltip .cm-btn:hover{color:#337ab7}
+        .add-node-dialog td{height:40px}
+        .add-node-dialog .td-til{text-align:right; padding-right:10px; font-size:14px; color:#333}
+        /*返回按钮*/
+        .back-button{
+            content: "返回";
+            width: 100px;
+            height: 60px;
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            background-color: gainsboro;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+        d3.json("./rolegragh.json", function(json) {
+            function GroupExplorer(wrapper,config){
+                var defaultConfig={
+                    data:{"nodes":[],"links":[]},
+                    width:window.innerWidth,
+                    height:window.innerHeight-17,
+                    distance:100
+                };
+                $.extend(true,defaultConfig,config);
+                defaultConfig.data.links.forEach(function (e) {
+                    if(typeof e.source!="number"&&typeof e.target!="number"){
+                        //用指定的字段确定link的source和target，默认是索引
+                        var sourceNode = defaultConfig.data.nodes.filter(function (n) {
+                                    return n.name === e.source;
+                                })[0],
+                                targetNode = defaultConfig.data.nodes.filter(function (n) {
+                                    return n.name === e.target;
+                                })[0];
+                        e.source = sourceNode;
+                        e.target = targetNode;
+                    }
+                });
+                var _this=this,highlighted=null,dependsNode=[],dependsLinkAndText=[];
+                var zoom = d3.zoom()
+                        .scaleExtent([0.2,10])
+                        .on("zoom",function(){
+                            _this.zoomed();
+                        });
+
+                this.vis = d3.select("body").append("svg:svg")
+                        .attr("width", defaultConfig.width)
+                        .attr("height", defaultConfig.height)
+                        .call(zoom).on("dblclick.zoom", null);
+
+                this.vis=this.vis.append('g').attr('class','all')
+                        .attr("width", defaultConfig.width)
+                        .attr("height", defaultConfig.height);
+
+
+                this.force = d3.forceSimulation()
+                        .nodes(defaultConfig.data.nodes)
+                        .force("link", d3.forceLink(defaultConfig.data.links).distance(defaultConfig.distance))
+                        .force("charge", d3.forceManyBody())
+                        .force("center", d3.forceCenter(defaultConfig.width / 2, defaultConfig.height / 2))
+                        .force("charge",d3.forceManyBody())
+                        .force("collide",d3.forceCollide(60).strength(0.2).iterations(5))
+
+                this.vis.append("svg:defs").selectAll("marker")
+                        .data(["end"])
+                        .enter().append("svg:marker")
+                        .attr("id","arrow")
+                        .attr('class','arrow')
+                        .attr("viewBox", "0 -5 10 10")
+                        .attr("refX", 27)
+                        .attr("refY", 0)
+                        .attr("markerWidth", 9)
+                        .attr("markerHeight", 16)
+                        .attr("markerUnits","userSpaceOnUse")
+                        .attr("orient", "auto")
+                        .append("svg:path")
+                        .attr("d", "M0,-5L10,0L0,5")
+                        .attr('fill','#666');
+
+                this.link = this.vis.selectAll("line.link")
+                        .data(defaultConfig.data.links)
+                        .enter().append("svg:path")
+                        .attr("class", "link")
+                        .attr('stroke-width',1)
+                        .attr('id', function (d) {
+                            return d.source.index + '_' + d.target.index
+                        })
+                        .attr('marker-end', function (d) {
+                            if (d.source.index == d.target.index) {
+                                return false; //不应该有指向自己的关系 异常处理
+                            } else {
+                                return "url(#arrow)"
+                            }
+                        })
+                        .attr('stroke','#18a1cf')
+                        .attr('fill','none');
+
+
+                var dragstart=function(d, i) {
+                    console.info(d3.event.subject)
+                    _this.force.stop();
+                    //解决使用缩放zoom时节点无法拖动，只能整体移动的问题
+                    d3.event.sourceEvent.stopPropagation();
+                };
+
+                var dragmove=function(d, i) {
+                    d.px += d3.event.dx;
+                    d.py += d3.event.dy;
+                    d.x += d3.event.dx;
+                    d.y += d3.event.dy;
+                    _this.tick();
+                };
+
+                var dragend=function(d, i) {
+                    d3.event.subject.fx = null;
+                    d3.event.subject.fy = null;
+                    _this.force.restart();
+                    _this.tick();
+                };
+
+                this.nodeDrag = d3.drag()
+                        .on("start", dragstart)
+                        .on("drag", dragmove)
+                        .on("end", dragend);
+
+                //选中某个节点
+                this.highlightObject=function(obj){
+                    if (obj) {
+                        var objIndex= obj.index;
+                        dependsNode=dependsNode.concat([objIndex]);
+                        dependsLinkAndText=dependsLinkAndText.concat([objIndex]);
+                        defaultConfig.data.links.forEach(function(lkItem){
+                            if(objIndex==lkItem['source']['index']){
+                                dependsNode=dependsNode.concat([lkItem.target.index])
+                            }else if(objIndex==lkItem['target']['index']){
+                                dependsNode=dependsNode.concat([lkItem.source.index])
+                            }
+                        });
+                        _this.node.classed('inactive',function(d){
+                            return (dependsNode.indexOf(d.index)==-1)
+                        });
+                        _this.link.classed('inactive', function(d) {
+
+                            return ((dependsLinkAndText.indexOf(d.source.index)==-1)&&(dependsLinkAndText.indexOf(d.target.index)==-1))
+                        });
+
+                        _this.linetext.classed('inactive',function(d){
+                            return ((dependsLinkAndText.indexOf(d.source.index)==-1)&&(dependsLinkAndText.indexOf(d.target.index)==-1))
+                        });
+                    } else {
+                        _this.node.classed('inactive', false);
+                        _this.link.classed('inactive', false);
+                        _this.linetext.classed('inactive', false);
+                    }
+                };
+
+                //高亮选中节点 信息提示框
+                this.highlightToolTip=function(obj){
+                    console.log(obj);
+                    if(obj){
+                        _this.tooltip.html("<div class='title'>"+obj.name+"的资料</div><table class='detail-info'><tr><td class='td-label'>名字：</td><td>"+obj.name+"</td></tr>" +
+                                        "<tr><td class='td-label'>index：</td><td>"+obj.index+"</td></tr><tr><td class='td-label'>链接：</td><td><a href='https://www.linkeddb.com/'>星关系</a></td></tr></table>")
+                                .style("left",(d3.event.pageX+20)+"px")
+                                .style("top",(d3.event.pageY-20)+"px")
+                                .style("opacity",1.0);
+                    }else{
+                        _this.tooltip.style("opacity",0.0);
+                    }
+                };
+
+                this.tooltip=d3.select("body").append("div")
+                        .attr("class","tooltip")
+                        .attr("opacity",0.0)
+                        .on('dblclick',function(){
+                            d3.event.stopPropagation();
+                        })
+                        .on('mouseover',function(){
+                            if (_this.node.mouseoutTimeout) {
+                                clearTimeout(_this.node.mouseoutTimeout);
+                                _this.node.mouseoutTimeout = null;
+                            }
+                        })
+                        .on('mouseout',function(){
+                            if (_this.node.mouseoutTimeout) {
+                                clearTimeout(_this.node.mouseoutTimeout);
+                                _this.node.mouseoutTimeout = null;
+                            }
+                            _this.node.mouseoutTimeout=setTimeout(function() {
+                                _this.highlightToolTip(null);
+                            }, 300);
+                        });
+
+                //添加元素节点
+                this.node = this.vis.selectAll("g.node")
+                        .data(defaultConfig.data.nodes)
+                        .enter().append("svg:g")
+                        .attr("class", "node")
+                        .call(_this.nodeDrag)
+                        .on('mouseover', function(d) {
+                            if (_this.node.mouseoutTimeout) {
+                                clearTimeout(_this.node.mouseoutTimeout);
+                                _this.node.mouseoutTimeout = null;
+                            }
+                            _this.highlightToolTip(d);
+                        })
+                        .on('mouseout', function() {
+                            if (_this.node.mouseoutTimeout) {
+                                clearTimeout(_this.node.mouseoutTimeout);
+                                _this.node.mouseoutTimeout = null;
+                            }
+                            _this.node.mouseoutTimeout=setTimeout(function() {
+                                _this.highlightToolTip(null);
+                            }, 300);
+                        })
+                        //单击节点 高亮选中节点
+                        .on('click',function(d){
+                            _this.highlightObject(d);
+                            d3.event.stopPropagation();
+                            console.log(d3.select(".back-button"));
+                            // 添加返回按钮节点 ,并给返回按钮注册事件
+                            d3.select("body").append("div")
+                                .attr("class","back-button")
+                                .attr("opacity",1)
+                                .on('click',function(){
+                                    dependsNode=dependsLinkAndText=[];
+                                    _this.highlightObject(null);
+                                    d3.selectAll(".back-button").remove();
+                                })
+                                .text("返回");
+                        });
+                        //单击body 取消选中
+//                        d3.select("body").on('dblclick',function(){
+/*                        d3.select("body").on('click',function(){
+                            dependsNode=dependsLinkAndText=[];
+                            _this.highlightObject(null);
+                        });*/
+
+                //节点
+                this.node.append("svg:image")
+                        .attr("class", "circle")
+                        .attr("xlink:href",function(d){
+                            return d.avatar; //修改节点头像
+                        })
+                        .attr("x", "-25px")
+                        .attr("y", "-25px")
+                        .attr("width", "50px")
+                        .attr("height", "50px");
+                //节点文本名称
+                this.node.append("svg:text")
+                        .attr("class", "nodetext")
+                        .attr("dy", "50px")
+                        .attr('text-anchor','middle')
+                        .text(function(d) { return d.name })
+
+                //链接线文字节点
+                this.linetext=this.vis.selectAll('.linetext')
+                        .data(defaultConfig.data.links)
+                        .enter()
+                        .append("text")
+                        .append('avg:textPath')
+                        .attr("class","linetext")
+                        .attr("startOffset", "50%")  //文字在线的位置  居中
+                        .attr("text-anchor", "middle")
+                        .attr("xlink:href", function(d) {
+                            if (d.source.index == d.target.index) {
+                                return false; //不应该有指向自己的关系 异常处理
+                            } else {
+                                return "#" + d.source.index + "_" + d.target.index;
+                            }
+                        })
+                        .text(function(d){
+//                            console.log(this,111111);
+                            return d.relation;  //关系文字
+                        })
+                        .attr('fill','#18a1cf');
+
+
+                this.zoomed=function(){
+                    _this.vis.attr("transform", d3.event.transform);
+                };
+
+
+                var findMaxWeightNode=function(){
+                    var baseWeight= 1,baseNode;
+                    defaultConfig.data.nodes.forEach(function(item){
+                        console.info(item);
+                        if(item.weight>baseWeight){
+                            baseWeight=item.weight;
+                            baseNode=item;
+                        }
+                    });
+                    return baseNode;
+                };
+                var arcPath=function(leftHand, d) {
+                    var start = leftHand ? d.source : d.target,
+                            end = leftHand ? d.target : d.source,
+                            dx = end.x - start.x,
+                            dy = end.y - start.y,
+                            //dr = Math.sqrt(dx * dx + dy * dy),    //半径
+                            dr = Math.sqrt(dx * dx + dy * dy)*10,    //半径变大，线变直
+                            sweep = leftHand ? 0 : 1;
+                    return "M" + start.x + "," + start.y + "A" + dr + "," + dr +
+                            " 0 0," + sweep + " " + end.x + "," + end.y;
+                };
+                //力导向图布局 force 有一个事件 tick，
+                this.tick=function() {
+                    _this.link.attr("d", function(d) {
+                        //弧线路径位置
+                        return arcPath(false, d);
+                    });
+                    //关系文字显示的位置
+                    _this.linetext.attr("d", function(d) {
+                        return arcPath(d.source.x < d.target.x, d);
+                    });
+                    _this.node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+                };
+                //力导向图是不断运动的，每一时刻都在发生更新，必须不断更新节点和连线的位置。力导向图布局 force 有一个事件 tick，每进行到一个时刻，都要调用它，更新的内容就写在它的监听器里就好。
+                _this.force.on("tick", this.tick);
+
+            }
+            new GroupExplorer('body',{
+                data:json
+            });
+        });
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="echarts.min.js"></script>
+    <script src=" https://cdn.bootcss.com/jquery/1.12.2/jquery.min.js"></script>
+    <script src=" index.js"></script>
+</head>
+<body>
+    <button onclick="fun()">换集</button>
+    <div id="worksNum" style="width: 1000px;height: 500px"></div>
+    <div id="worksNum2" style="width: 300px;height: 500px"></div>
+    <div id="worksNum3" style="width: 300px;height: 500px"></div>
+    <script>
+//        makeSvgPic('worksNum','./rolegragh.json');
+makeSvgPic('worksNum','./person_gragh.json');
+//        makeSvgPic('worksNum','./tsconfig.json');
+//        makeSvgPic('worksNum2','./rolegragh.json');
+//        makeSvgPic('worksNum3','./rolegragh.json');
+        function fun() {
+            makeSvgPic('worksNum','./person_gragh.json');
+        }
+    </script>
+</body>
+</html>

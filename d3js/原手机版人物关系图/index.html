@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src=" https://cdn.bootcss.com/jquery/1.12.2/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .showMoreData , .hideMoreData{
+            width: 70%;
+            height: 30px;
+            margin: 10px auto;
+            border:1px solid #337ab7;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="main" style="width: 100%">
+
+</div>
+<!--<button class="addNode">添加node</button>-->
+<!--<button class="removeNode">减少node</button>-->
+
+<script src="mobilePersonSvg.js"></script>
+<script>
+    initData("main","./person_gragh.json");
+//    $(".addNode").on('click',function () {
+//        addmakeSvgPic("main")
+//    })
+//    $(".removeNode").on('click',function () {
+//        removemakeSvgPic("main");
+//    })
+</script>
+</body>
+</html>

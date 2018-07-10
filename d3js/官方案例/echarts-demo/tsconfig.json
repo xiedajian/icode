@@ -1,0 +1,348 @@
+{
+  "nodes": [
+    {
+      "type": "person",
+      "name": "冯小刚",
+      "avatar": "https://i.linkeddb.com/person2/454a/b487/1d914307a22bc2bf790d9b48.jpg",
+      "id": 7
+    },
+    {
+      "type": "tv",
+      "name": "私人订制",
+      "avatar": "https://i.linkeddb.com/movie/74391df14d86caea3be110757074d50b.jpg",
+      "id": 1053504
+    },
+    {
+      "type": "tv",
+      "name": "情殇",
+      "avatar": "https://i.linkeddb.com/movie/b5284855b397f14bdca0c300f69011eb.jpg",
+      "id": 1049618
+    },
+    {
+      "type": "mv",
+      "name": "我不是潘金莲",
+      "avatar": "https://i.linkeddb.com/movie/31b16a92782452dabd0a6a9cf5ee6708.jpg",
+      "id": 1045266
+    },
+    {
+      "type": "mv",
+      "name": "抗美援朝",
+      "avatar": "https://i.linkeddb.com/movie/87c61fe2297ac23627fa05bc34b16af4.jpg",
+      "id": 1039060
+    },
+    {
+      "type": "mv",
+      "name": "2014年中央电视台春节联欢晚会",
+      "avatar": "https://i.linkeddb.com/movie/89a682ef1f3fdd8a2923aa55dc30b13e.jpg",
+      "id": 1036751
+    },
+    {
+      "type": "mv",
+      "name": "私人订制",
+      "avatar": "https://i.linkeddb.com/movie/db6f6c2910ff1d84d02078c3b42f712d.jpg",
+      "id": 1025004
+    },
+    {
+      "type": "mv",
+      "name": "一九四二",
+      "avatar": "https://i.linkeddb.com/movie/3e5d2a489676f9766f3e3154d854c290.jpg",
+      "id": 1018475
+    },
+    {
+      "type": "mv",
+      "name": "非诚勿扰2",
+      "avatar": "https://i.linkeddb.com/movie/726e5a106c8aed44e4a7d65017fb067f.jpg",
+      "id": 1007357
+    },
+    {
+      "type": "mv",
+      "name": "唐山大地震",
+      "avatar": "https://i.linkeddb.com/movie/1ba949a41d1c9b76276259166c84d9aa.jpg",
+      "id": 993746
+    },
+    {
+      "type": "mv",
+      "name": "非诚勿扰",
+      "avatar": "https://i.linkeddb.com/movie/3539b3c5a8613ae840d216e3219ed995.jpg",
+      "id": 985034
+    },
+    {
+      "type": "mv",
+      "name": "永失我爱",
+      "avatar": "https://i.linkeddb.com/movie/7cc7384772484d27a5025fbefed34407.jpg",
+      "id": 953995
+    },
+    {
+      "type": "mv",
+      "name": "天下无贼",
+      "avatar": "https://i.linkeddb.com/movie/6cb972828ebc012a011f9a951f75c4a5.jpg",
+      "id": 953437
+    },
+    {
+      "type": "mv",
+      "name": "甲方乙方",
+      "avatar": "https://i.linkeddb.com/movie/f4dddcb74c93425ca6a7745e5dcf60c8.jpg",
+      "id": 950993
+    },
+    {
+      "type": "mv",
+      "name": "一声叹息",
+      "avatar": "https://i.linkeddb.com/movie/2271d38922fdb365dc14fe9fb876ffba.jpg",
+      "id": 950972
+    },
+    {
+      "type": "mv",
+      "name": "没完没了",
+      "avatar": "https://i.linkeddb.com/movie/36286c781f94564310fe61d03f3fc4d9.jpg",
+      "id": 949350
+    },
+    {
+      "type": "mv",
+      "name": "大腕",
+      "avatar": "https://i.linkeddb.com/movie/ee316e0533fd2fc5063833c36759c068.jpg",
+      "id": 948766
+    },
+    {
+      "type": "mv",
+      "name": "不见不散",
+      "avatar": "https://i.linkeddb.com/movie/03cab603330ccd3f715bc34c4339db53.jpg",
+      "id": 948640
+    },
+    {
+      "type": "mv",
+      "name": "老炮儿",
+      "avatar": "https://i.linkeddb.com/movie/8334af865d612cfa9d96e1231033dd54.jpg",
+      "id": 1039031
+    },
+    {
+      "type": "mv",
+      "name": "甲方乙方",
+      "avatar": "https://i.linkeddb.com/movie/f4dddcb74c93425ca6a7745e5dcf60c8.jpg",
+      "id": 950993
+    },
+    {
+      "type": "mv",
+      "name": "非诚勿扰2",
+      "avatar": "https://i.linkeddb.com/movie/726e5a106c8aed44e4a7d65017fb067f.jpg",
+      "id": 1007357
+    },
+    {
+      "type": "mv",
+      "name": "非诚勿扰",
+      "avatar": "https://i.linkeddb.com/movie/3539b3c5a8613ae840d216e3219ed995.jpg",
+      "id": 985034
+    },
+    {
+      "type": "mv",
+      "name": "遭遇激情",
+      "avatar": "https://i.linkeddb.com/movie/f473cf025f5fba462972b3acc524def4.jpg",
+      "id": 958787
+    },
+    {
+      "type": "mv",
+      "name": "大撒把",
+      "avatar": "https://i.linkeddb.com/movie/30632a2b3733def3a67f53681bb21060.jpg",
+      "id": 956524
+    },
+    {
+      "type": "mv",
+      "name": "永失我爱",
+      "avatar": "https://i.linkeddb.com/movie/7cc7384772484d27a5025fbefed34407.jpg",
+      "id": 953995
+    },
+    {
+      "type": "mv",
+      "name": "天下无贼",
+      "avatar": "https://i.linkeddb.com/movie/6cb972828ebc012a011f9a951f75c4a5.jpg",
+      "id": 953437
+    },
+    {
+      "type": "mv",
+      "name": "一声叹息",
+      "avatar": "https://i.linkeddb.com/movie/2271d38922fdb365dc14fe9fb876ffba.jpg",
+      "id": 950972
+    },
+    {
+      "type": "mv",
+      "name": "大腕",
+      "avatar": "https://i.linkeddb.com/movie/ee316e0533fd2fc5063833c36759c068.jpg",
+      "id": 948766
+    },
+    {
+      "type": "mv",
+      "name": "不见不散",
+      "avatar": "https://i.linkeddb.com/movie/03cab603330ccd3f715bc34c4339db53.jpg",
+      "id": 948640
+    }
+  ],
+  "links": [
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 1
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 2
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 3
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 4
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 5
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 6
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 7
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 20
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 9
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 21
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 24
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 25
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 19
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 26
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 15
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 27
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "导演",
+      "target": 28
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "演员",
+      "target": 18
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "演员",
+      "target": 19
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "编剧",
+      "target": 20
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "编剧",
+      "target": 21
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "编剧",
+      "target": 22
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "编剧",
+      "target": 23
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "编剧",
+      "target": 24
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "编剧",
+      "target": 25
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "编剧",
+      "target": 26
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "编剧",
+      "target": 27
+    },
+    {
+      "color": "",
+      "source": 0,
+      "relation": "编剧",
+      "target": 28
+    }
+  ]
+}

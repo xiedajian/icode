@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src=" https://cdn.bootcss.com/jquery/1.12.2/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .showMoreData , .hideMoreData{
+            width: 70%;
+            height: 30px;
+            margin: 10px auto;
+            border:1px solid #337ab7;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="mainPersonRel" style="width: 100%">
+
+</div>
+<div id="main" style="width: 500px">
+
+</div>
+<!--<button class="addNode">添加node</button>-->
+<!--<button class="removeNode">减少node</button>-->
+
+<script src="mobilePersonSvg.js"></script>
+<script src="d3-rolesMap.js"></script>
+<script>
+    var data={"nodes": [{"link": "/person/None/", "type": "person", "name": "\u51af\u5c0f\u521a", "avatar": "https://i.linkeddb.com/person2/454a/b487/1d914307a22bc2bf790d9b48.jpg", "id": 8}, {"link": "/movie/59ed58151d69eb002947e3ed/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/03cab603330ccd3f715bc34c4339db53.jpg", "id": 291}, {"link": "/movie/59ed58151d69eb002947e46b/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/ee316e0533fd2fc5063833c36759c068.jpg", "id": 417}, {"link": "/movie/59ed58151d69eb002947e6b3/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/36286c781f94564310fe61d03f3fc4d9.jpg", "id": 1001}, {"link": "/movie/59ed58181d69eb002947eba2/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/1fd5f396f4525a539132dde2d8fb03b6.jpg", "id": 2264}, {"link": "/movie/59ed58181d69eb002947ed09/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/2271d38922fdb365dc14fe9fb876ffba.jpg", "id": 2623}, {"link": "/movie/59ed58181d69eb002947ed1e/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/f4dddcb74c93425ca6a7745e5dcf60c8.jpg", "id": 2644}, {"link": "/movie/59ed58191d69eb002947f09b/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/5649e8a2500ce657fce111321c7b02f3.jpg", "id": 3537}, {"link": "/movie/59ed581b1d69eb002947f6aa/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/6cb972828ebc012a011f9a951f75c4a5.jpg", "id": 5088}, {"link": "/movie/59ed581b1d69eb002947f8d8/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/7cc7384772484d27a5025fbefed34407.jpg", "id": 5646}, {"link": "/movie/59ed581e1d69eb00294802b9/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/30632a2b3733def3a67f53681bb21060.jpg", "id": 8175}, {"link": "/movie/59ed58201d69eb0029480b90/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/f473cf025f5fba462972b3acc524def4.jpg", "id": 10438}, {"link": "/movie/59ed58211d69eb0029481077/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/d52d2da1e732d1fb566f54ec3a2a674a.jpg", "id": 11693}, {"link": "/movie/59ed583a1d69eb0029487217/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/3539b3c5a8613ae840d216e3219ed995.jpg", "id": 36685}, {"link": "/movie/59ed58431d69eb0029489346/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/30878f49cc2b4f13985f0d54553ca4f3.jpg", "id": 45180}, {"link": "/movie/59ed58431d69eb002948941f/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/1ba949a41d1c9b76276259166c84d9aa.jpg", "id": 45397}, {"link": "/movie/59ed58481d69eb002948a52a/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/e643f519b224a27bac2b57347ce094e0.jpg", "id": 49760}, {"link": "/movie/59ed58521d69eb002948c94a/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/726e5a106c8aed44e4a7d65017fb067f.jpg", "id": 59008}, {"link": "/movie/59ed585d1d69eb002948f4b8/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/3e5d2a489676f9766f3e3154d854c290.jpg", "id": 70126}, {"link": "/movie/59ed58641d69eb0029490e39/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/db6f6c2910ff1d84d02078c3b42f712d.jpg", "id": 76655}, {"link": "/movie/59ed586f1d69eb0029493c1c/", "type": "mv", "name": null, "avatar": "https://static.linkeddb.com/images/movie.jpg", "id": 88402}, {"link": "/movie/59ed58711d69eb0029494504/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/8334af865d612cfa9d96e1231033dd54.jpg", "id": 90682}, {"link": "/movie/59ed58711d69eb0029494521/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/upload/7e4a/e902/fe3d7ad08bbc7d350403d841.jpg", "id": 90711}, {"link": "/movie/59ed58751d69eb00294954b3/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/d0d105ffe1c67a8566c93b5c588cc9fd.jpg", "id": 94697}, {"link": "/movie/59ed58771d69eb0029495d5f/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/movie/31b16a92782452dabd0a6a9cf5ee6708.jpg", "id": 96917}, {"link": "/movie/59ffdf0c198c38001418598e/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/upload/cc53/5ad3/996b853a70d4a7a04c7ed6d3.png", "id": 99018}, {"link": "/movie/5a2df1dd13bd86000e25e6d5/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/upload/0ef9/2445/7c25f6b44700d9f7e8fdebf9.png", "id": 99398}, {"link": "/movie/5a2f4a4c13bd86000e25ec23/", "type": "mv", "name": null, "avatar": "https://i.linkeddb.com/upload/f7a6/bdf7/66b59b3124e883aed8c9929d.jpg", "id": 99516}, {"link": "/tv/59ed57e11d69eb002947ca2f/", "type": "tv", "name": null, "avatar": "https://i.linkeddb.com/upload/2370/7d41/b40fca3d3cc976601110e9fc.jpg", "id": 100560}, {"link": "/tv/59ed57f01d69eb002947d024/", "type": "tv", "name": null, "avatar": "https://i.linkeddb.com/upload/b1dd/2834/d90ddaa1c25ac0878b83d04e.jpg", "id": 102084}, {"link": "/tv/59ed580e1d69eb002947df4f/", "type": "tv", "name": null, "avatar": "https://i.linkeddb.com/movie/74391df14d86caea3be110757074d50b.jpg", "id": 105966}], "links": [{"color": "", "source": 0, "relation": "\u6f14\u5458", "target": 21}, {"color": "", "source": 0, "relation": "\u6f14\u5458", "target": 6}, {"color": "", "source": 0, "relation": "\u7f16\u5267", "target": 17}, {"color": "", "source": 0, "relation": "\u7f16\u5267", "target": 13}, {"color": "", "source": 0, "relation": "\u7f16\u5267", "target": 11}, {"color": "", "source": 0, "relation": "\u7f16\u5267", "target": 10}, {"color": "", "source": 0, "relation": "\u7f16\u5267", "target": 9}, {"color": "", "source": 0, "relation": "\u7f16\u5267", "target": 8}, {"color": "", "source": 0, "relation": "\u7f16\u5267", "target": 5}, {"color": "", "source": 0, "relation": "\u7f16\u5267", "target": 2}, {"color": "", "source": 0, "relation": "\u7f16\u5267", "target": 1}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 30}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 29}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 24}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 22}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 20}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 19}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 18}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 17}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 15}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 13}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 9}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 8}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 6}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 5}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 3}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 2}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 1}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 25}, {"color": "", "source": 0, "relation": "\u6f14\u5458", "target": 28}, {"color": "", "source": 0, "relation": "\u5236\u7247\u4eba", "target": 1}, {"color": "", "source": 0, "relation": "\u6f14\u5458", "target": 4}, {"color": "", "source": 0, "relation": "\u7f16\u5267", "target": 6}, {"color": "", "source": 0, "relation": "\u6f14\u5458", "target": 7}, {"color": "", "source": 0, "relation": "\u5236\u7247\u4eba", "target": 12}, {"color": "", "source": 0, "relation": "\u6f14\u5458", "target": 14}, {"color": "", "source": 0, "relation": "\u6f14\u5458", "target": 16}, {"color": "", "source": 0, "relation": "\u6f14\u5458", "target": 19}, {"color": "", "source": 0, "relation": "\u7f16\u5267", "target": 23}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 23}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 26}, {"color": "", "source": 0, "relation": "\u5bfc\u6f14", "target": 27}, {"color": "", "source": 0, "relation": "\u5236\u7247\u4eba", "target": 27}]}
+    initData('mainPersonRel', 'https://www.linkeddb.com/person/59fa6e6618521569b65f45e7/person_gragh.json','source');
+//  
+//     let config={
+//         nodes:data.nodes,
+//         links:data.links,
+//     }
+//     let main= new MakeSvgPicClass("main",config) 
+
+</script>
+</body>
+</html>
