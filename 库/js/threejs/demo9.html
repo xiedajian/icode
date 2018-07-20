@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>粒子动起来</title>
+    <script src="vendor/three.js"></script>
+    <script src="vendor/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000 );
+            var renderer = new THREE.WebGLRenderer();
+
+            renderer.setClearColor(new THREE.Color(0x000000));
+            renderer.setSize(window.innerWidth,window.innerHeight);
+
+            camera.position.set(20,0,150);
+            document.body.appendChild(renderer.domElement);
+
+            createParticles();
+            var cloud;
+            function createParticles() {
+                //几何形状
+                var geom=new THREE.Geometry();
+                //创建材质
+                var material = new THREE.PointCloudMaterial({
+                    size:5,vertexColors:true,color:0xffffff,sizeAttenuation:true,opacity:.5
+                });
+                var range=500;
+
+                for (var x=0;x<10000;x++){
+
+                    var partcile=new THREE.Vector3(
+                        Math.random()*range -range/2,
+                        Math.random()*range -range/2,
+                        Math.random()*range -range/2,
+                    );
+                    geom.vertices.push(partcile);
+                    var color=new THREE.Color(0xffffff);
+                    color.setHSL(color.getHSL().h,color.getHSL().s,Math.random()*color.getHSL().l);
+                    geom.colors.push(color);
+                }
+
+                //相当于总管
+                cloud=new THREE.PointCloud(geom,material);
+                cloud.name='particles';
+                scene.add(cloud);
+
+            }
+
+            render();
+            function render() {
+                requestAnimationFrame(render);
+                cloud.rotation.x +=0.01;
+                // cloud.rotation.y +=0.01;
+                cloud.rotation.z +=0.01;
+                renderer.render(scene,camera);
+            }
+
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>

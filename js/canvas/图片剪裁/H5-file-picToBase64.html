@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<img id="image" src=""/>
+<br/>
+<input type="file" onchange="selectImage(this);"/>
+<br/>
+<p>结果：</p>
+<p class="result"></p>
+<script>
+    var image = new Image();
+    var base64Data='';
+    image.onload=function () {
+        console.log(this);
+        console.log('width:',this.width);
+        console.log('height:',this.height);
+    }
+    function selectImage(file){
+        if(!file.files || !file.files[0]){
+            return;
+        }
+        console.log('size:',file.files[0].size);
+        var reader = new FileReader();
+        reader.onload = function(evt){
+            base64Data = evt.target.result;
+            document.getElementById('image').src = base64Data;
+            image.src=base64Data;
+            document.querySelector('.result').innerText=base64Data;
+        }
+        reader.readAsDataURL(file.files[0]);
+    }
+
+</script>
+</body>
+</html>

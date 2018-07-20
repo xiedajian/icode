@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html,body{
+            height: 100%;
+            color: #fff;
+            font-size: 18px;
+        }
+        #app{
+            width: 100%;
+            height: 100%;
+            background: #264517;
+        }
+        .com1{
+            width: 100%;
+            height: 300px;
+            background: #FF3E60;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <p>{{title}}</p>
+
+    <demo-name v-bind:msg="msg" v-bind:obj="obj" v-on:childe="plog">通过插槽向子组件的solt位置插入内容</demo-name>
+
+</div>
+
+<script>
+
+
+
+    /***
+     * 组件
+     */
+
+    var template = ``;
+    // 声明组件
+    Vue.component('demo-name',{
+        template: `<div class="com1">{{msg}},{{obj.content}},{{title}}
+                <button v-on:click="myclick">向父亲传递</button>
+
+                </div>`,
+        // 用于接受父组件传进来的值
+        props:['msg','obj'],
+
+        data:function () {
+            return{
+                title:'子组件的标题'
+            }
+        },
+        methods:{
+            myclick:function () {
+                console.log('child click')
+                this.$emit('childe',this.title)
+            }
+        }
+    })
+
+
+
+    // vue 实例
+    var app = new Vue({
+        el: '#app',
+        data:{
+                title : 'app content',
+                msg :'来自ap的msg',
+                obj:{
+                    content:'内容'
+                }
+
+            },
+        methods:{
+            plog:function ($event) {
+                console.log($event)
+                this.title=$event
+            }
+        }
+    });
+</script>
+</body>
+</html>

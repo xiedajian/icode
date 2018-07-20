@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css" />
+    <link rel="stylesheet" href="css/example.css" />
+</head>
+<body>
+    <script id="J_ArcMenuTpl" type="text/html">
+        <div class="arc-menu">
+            <div class="menu-all-in">+</div>
+            <ul class="arc-menu-s1 arc-parent">
+                {{each arcParentItems as value i}}
+                  <li data-id="{{value.mid}}" ><a href="#" title="{{value.title}}"><span><span class="arc-icon {{value.iconClass}}"></span></span></a></li>
+                {{/each}}
+            </ul>
+            {{each arcParentItems as value i}}
+                {{if value.arcChildItems.length}}
+                    <ul class="arc-menu-s1 arc-menu-s2 arc-child {{'arc-child'+i}}" style="display:none">
+                        {{each value.arcChildItems as subValue subIndex}}
+                          <li data-id="{{subValue.mid}}"><a href="#"  title="{{subValue.title}}"><span><span class="arc-icon {{subValue.iconClass}}"></span></span></a></li>
+                        {{/each}}
+                    </ul>
+                    {{else}}
+                      <ul class="arc-menu-s1 arc-menu-s2 arc-child {{'arc-child'+i}}" style="display:none;box-shadow:none">
+                      </ul>
+                {{/if}}
+            {{/each}}
+        </div>
+    </script>
+    <div id="J_ArcMenu">
+
+    </div>
+</body>
+<script data-main="js/view/example_main.js" src="js/plugins/require/require.js" ></script>
+</html>

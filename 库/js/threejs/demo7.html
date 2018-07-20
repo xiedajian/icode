@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>粒子</title>
+    <script src="vendor/three.js"></script>
+    <script src="vendor/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000 );
+            var renderer = new THREE.WebGLRenderer();
+
+            renderer.setClearColor(new THREE.Color(0x000000));
+            renderer.setSize(window.innerWidth,window.innerHeight);
+
+            camera.position.set(20,0,150);
+            document.body.appendChild(renderer.domElement);
+
+            createParticles();
+            function createParticles() {
+                var geom=new THREE.Geometry();
+                var material = new THREE.PointCloudMaterial({
+                    size:5,vertexColors:true,color:0xffffff
+                });
+
+                for (var x=-5;x<5;x++){
+                    for (var y=-5;y<5;y++){
+                        var particle=new THREE.Vector3(x*10,y*10,0);
+                        geom.vertices.push(particle);
+                        geom.colors.push(new THREE.Color(Math.random()* 0x00ffff));
+                    }
+                }
+                var cloud=new THREE.PointCloud(geom,material);
+                scene.add(cloud);
+
+            }
+
+            render();
+            function render() {
+                requestAnimationFrame(render);
+                renderer.render(scene,camera);
+            }
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>

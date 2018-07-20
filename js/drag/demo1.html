@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #div{
+            width: 200px;
+            height: 200px;
+            background: green;
+            position: absolute;
+        }
+        #div2{
+            width: 200px;
+            height: 200px;
+            background: gold;
+            position: absolute;
+            top: 200px;
+            left: 200px;
+        }
+    </style>
+</head>
+<body>
+<div id="div">
+</div>
+<div id="div2"></div>
+<script>
+    window.onload=function(){
+        var div=document.getElementById("div");
+        div.onmousedown=function(ev){
+            var e=window.event || ev;
+            //var Mydiv=document.getElementById("div");
+            //获取到鼠标点击的位置距离div左侧和顶部边框的距离；
+            var oX=e.clientX-div.offsetLeft;
+            var oY=e.clientY-div.offsetTop;
+            //当鼠标移动，把鼠标的偏移量付给div
+            document.onmousemove=function(ev){
+                //计算出鼠标在XY方向上移动的偏移量，把这个偏移量加给DIV的左边距和上边距，div就会跟着移动
+                var e=window.event|| ev;
+                div.style.left=e.clientX-oX+"px";
+                div.style.top=e.clientY-oY+"px";
+            }
+            //当鼠标按键抬起，清除移动事件
+            document.onmouseup=function(){
+                document.onmousemove=null;
+                document.onmouseup=null;
+            }
+        }
+        var div2=document.getElementById("div2");
+        div2.onmousedown=function(ev){
+            var e=window.event || ev;
+            //var Mydiv=document.getElementById("div");
+            //获取到鼠标点击的位置距离div左侧和顶部边框的距离；
+            var oX=e.clientX-div2.offsetLeft;
+            var oY=e.clientY-div2.offsetTop;
+            //当鼠标移动，把鼠标的偏移量付给div
+            document.onmousemove=function(ev){
+                //计算出鼠标在XY方向上移动的偏移量，把这个偏移量加给DIV的左边距和上边距，div就会跟着移动
+                var e=window.event|| ev;
+                div2.style.left=e.clientX-oX+"px";
+                div2.style.top=e.clientY-oY+"px";
+            }
+            //当鼠标按键抬起，清除移动事件
+            document.onmouseup=function(){
+                document.onmousemove=null;
+                document.onmouseup=null;
+            }
+        }
+    }
+</script>
+</body>
+</html>

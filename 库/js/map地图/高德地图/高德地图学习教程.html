@@ -1,0 +1,147 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <!--为了保证地图的清晰显示和最佳性能，请通过viewport设置页面显示比例为1，并禁止用户缩放页面，添加如下meta标签：-->
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <style type="text/css">
+        body,html,#container{
+            height: 100%;
+            margin: 0px;
+        }
+    </style>
+    <title>快速入门</title>
+</head>
+<body>
+<!--展示地图的地方创建一个div 容器，并指定id标识:-->
+<div id="container" tabindex="0"></div>
+<!--在页面中引入高德地图JavaScript API入口脚本-->
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&key=7c24ba9bd6a0b7b95d70ec6919e30c34"></script>
+<script type="text/javascript">
+    //生成一副简单地图只需要一句代码，将我们刚刚创建的div的id传给Map的构造函数即可，这个时候API将根据用户所在的城市自动进行地图中心点和级别的设定：
+    /**
+     * 1.生成一副简单地图只需要一句代码
+     * 将我们刚刚创建的div的id传给Map的构造函数即可，这个时候API将根据用户所在的城市自动进行地图中心点和级别的设定：
+     * @type {AMap.Map}
+     */
+    var map1 = new AMap.Map('container');
+    /**
+     * 2.1设定地图的中心点和级别,
+     * // 方法1：在地图初始化的时候传入相关属性，center属性的值可以是经纬度的二元数组，也可以是AMap.LngLat对象，要求经度值在前，纬度值在后
+     * @type {AMap.Map}
+     */
+    var map21 = new AMap.Map('container',{
+        resizeEnable: true,
+        zoom: 10,
+        center: [116.480983, 40.0958]
+    });
+    /**
+     * 2.2设定地图的中心点和级别,
+     * // 方法2：也可以在地图初始化过后，任何需要的地方通过方法来改变地图的中心点和级别
+     * @type {AMap.Map}
+     */
+    var map22 = new AMap.Map('container');
+    map22.setZoom(10);
+    map22.setCenter([116.39,39.9]);
+    /**
+     * 3 添加遮罩,
+     * JavaScript API提供了丰富的覆盖物，比如Marker点标记、Polyline折线、Polygon多边形、Circle圆等。以Marker为例， 我们创建一个最简单的Marker，并将它添加到地图上：
+     * @type {AMap.Map}
+     */
+    var marker3 = new AMap.Marker({
+        position: [116.480983, 39.989628],//marker所在的位置
+        map:map22//创建时直接赋予map属性
+    });
+    //也可以在创建完成后通过setMap方法执行地图对象
+    marker3.setMap(map22);
+    /**
+     * 4 关于插件的使用说明
+     * 高德地图JavaScript API在核心功能之外提供了丰富的控件、服务插件以及工具插件，比如工具条、比例尺、路线规划、高级信息窗体等等，详细清单见下方总览，
+     * 在使用这些接口之前需要使用AMap.plugin方法将对应的功能加载下来，然后才能创建相应的对象。比如在本页面顶端的demo中我们添加了工具条和高级信息窗体，代码如下：
+     */
+    var map4 = new AMap.Map('container');
+    map4.setZoom(10);
+    map4.setCenter([113.57529,34.806617]);
+    AMap.plugin(['AMap.ToolBar','AMap.AdvancedInfoWindow'],function(){
+        //创建并添加工具条控件
+        var toolBar = new AMap.ToolBar();
+        map4.addControl(toolBar);
+        //创建高级信息窗体并在指定位置打开
+        var infowindow = new AMap.AdvancedInfoWindow({
+            content: '<div class="info-title">高德地图</div><div class="info-content">'+
+            '<img src="http://webapi.amap.com/images/amap.jpg">'+
+            '高德是中国领先的数字地图内容、导航和位置服务解决方案提供商。<br>'+
+            '<a target="_blank" href="http://mobile.amap.com/">点击下载高德地图</a></div>',
+            offset: new AMap.Pixel(0, -30)
+        });
+        infowindow.open(map4,[113.57529,34.806617]);
+    })
+    /**
+     * 5 地图上绘制案例
+     * 最常用的地图覆盖物是Marker和信息窗体，除此之外，我们提供了圆Circle、多边形Polygon、折线Polyline、右键菜单ContextMenu等。
+     * 除信息窗体和右键菜单之外，这些覆盖物都可以使用setMap方法添加到地图或者从地图上移除，使用setMap()可以将覆盖物从地图中移除；信息窗体和右键菜单使用open方法显示在地图上：
+     * */
+    var map = new AMap.Map('container');
+    map.setZoom(5);
+    map.setCenter([113.57529,34.806617]);
+    //点标记
+    var marker = new AMap.Marker({
+        position: [113.57529,34.806617]
+    });
+    marker.setMap(map);
+    //范围指示器，圆圈
+    var circle = new AMap.Circle({
+        center: [113.57529,34.806617],
+        radius: 100,
+        fillOpacity:0.2,
+        strokeWeight:1
+    })
+    circle.setMap(map);
+    //增加窗口
+    map.setFitView()
+    var info = new AMap.InfoWindow({
+        content:"骑手位置",
+        offset:new AMap.Pixel(0,-28)
+    })
+    info.open(map,marker.getPosition())
+    /**
+     * 6 自定义点标记图标icon
+     * 作为中国的首都，我们使用一个五角星的图标，来进行北京的标注
+     * 我们可以使用字符串来指定图标icon的url
+     * */
+    var icon = new AMap.Icon({
+        image : 'http://vdata.amap.com/icons/b18/1/2.png',//24px*24px
+        //icon可缺省，缺省时为默认的蓝色水滴图标，
+        size : new AMap.Size(24,24)
+    });
+    var marker = new AMap.Marker({
+        icon : icon,//24px*24px
+        position :  [113.280461,34.840182],
+        offset : new AMap.Pixel(-12,-12),
+        map : map
+    });
+    /**
+     * 7 自定义点标记内容content
+     * 对于更加复杂的marker展示，我们可以使用Marker的content属性，
+     * content属性用来指定作为标记的dom节点或者dom节点的outerHTML。这里我们用一个div作为content来给台湾省多增加一个标记：
+     * */
+    var content= '<div classname="taiwan">宝岛台湾</div>';
+    //或者
+    var content = document.createElement('div');
+    content.innerHTML = '租房';
+    content.className = 'taiwan';
+    content.style.background = 'red';
+    content.style.color = 'green';
+
+    marker = new AMap.Marker({
+        content: content,
+        //position: provinces[i].center.split(','),
+        position: [113.545512,34.804693],
+        title: '测试标题',
+        offset: new AMap.Pixel(-10,0),
+        map: map
+    });
+
+</script>
+</body>
+</html>

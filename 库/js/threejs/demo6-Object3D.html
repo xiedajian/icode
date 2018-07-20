@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Object3D对象</title>
+    <script type="text/javascript" src="vendor/three.min.js"></script>
+    <script type="text/javascript" src="vendor/jquery.min.js"></script>
+    <!-- 常用相机控制器，依赖文件目录 three.js\examples\js\controls -->
+    <script type="text/javascript" src="vendor/OrbitControls.js"></script>
+</head>
+<body >
+
+<script>
+    /**
+     * Object3D对象  （基类）
+     *  -- Scene，Camera，Mesh，Line等都是继承Object3D对象，所以有必要简单了解一下Object3D对象
+     */
+
+
+    $(function () {
+        var scene=new THREE.Scene();
+
+        var geomtry= new THREE.BoxGeometry(100,100,100);    //新建盒子模型
+        var material=new THREE.MeshLambertMaterial({color:0xff0000});   //材质mtl
+        var mesh=new THREE.Mesh(geomtry,material);
+        scene.add(mesh);    //场景中添加模型
+
+        var light= new THREE.PointLight(0xffffff);
+        light.position.set(300,400,200);
+        scene.add(light);   //场景中添加点光源
+
+        //加入环境光使环境亮一点
+        scene.add(new THREE.AmbientLight(0x333333));
+
+        var camera=new THREE.PerspectiveCamera(40,window.innerWidth/window.innerHeight,1,1000);
+        camera.position.set(200,200,200);   //设置相机位置
+        // camera.lookAt(scene.position);
+        camera.lookAt(0,0,0);
+
+        var renderer=new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth,window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        render();
+        function render() {
+            // requestAnimationFrame(render);
+            // camera.position.x+=0.1;
+            // camera.position.y+=0.1;
+            // camera.position.z+=0.1;
+            renderer.render(scene,camera);
+        }
+
+
+
+        //相机控制器
+        var controls=new THREE.OrbitControls(camera);
+        controls.addEventListener('change',render);
+    });
+
+
+
+</script>
+</body>
+</html>

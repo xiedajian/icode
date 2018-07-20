@@ -1,0 +1,61 @@
+<!--
+    淘宝之前的方案，
+    动态设置viewport
+    通过监听document.documentElement.clientWidth来动态改变 html的字体大小
+    然后元素的尺寸全用  rem 来设置
+    但是字体的大小用 px, 这样保证字体不会太大太小，大屏一行看的字多
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dpr测试</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            width: 3.75rem;
+            height: 2rem;
+            background: red;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="box">
+
+</div>
+
+<script>
+    (function () {
+        var dpr = window.devicePixelRatio;
+        var meta = document.createElement('meta');
+        var scale = 1 / dpr;
+        meta.setAttribute('name', 'viewport');
+        meta.setAttribute('content', 'width=device-width, user-scalable=no, initial-scale=' + scale +
+            ', maximum-scale=' + scale + ', minimum-scale=' + scale);
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        // 动态设置的缩放大小会影响布局视口的尺寸
+        function resize() {
+            var deviceWidth  = document.documentElement.clientWidth;
+            document.documentElement.style.fontSize = (deviceWidth / 7.5) +'px';
+            /* 以iphone6 为设计稿 ，750 ，字体大小除以7.5，是100方便计算 */
+            console.log(dpr);
+            console.log(scale);
+            console.log(deviceWidth);
+            console.log(document.documentElement.style.fontSize);
+            console.log($('html').css('font-size'));
+            console.log($('body').css('font-size'));
+        }
+        resize();
+        window.onresize = resize;
+
+
+    })()
+</script>
+</body>
+</html>

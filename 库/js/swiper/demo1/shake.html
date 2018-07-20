@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta name='keywords' content='XXX'/>
+    <meta name='description' content='XXX'/>
+    <link rel='stylesheet' href='css/base.css'>
+    <link rel='stylesheet' href='css/style.css'>
+    <!-- Animate.css 一款强大的预设css3动画库 -->
+    <link rel='stylesheet' href='css/animate.min.css'>
+    <title>摇一摇</title>
+    <script src="js/jquery.1.11.1.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+</head>
+<body style="background: #FE345A;">
+     <!-- 红包音乐 -->
+    <audio id="shakemusic" src="./music/red-01.mp3" style="display: none;" preload></audio>
+    <audio id="openmusic" src="./music/red-02.mp3" style="display: none;" preload></audio>
+     <!--banner-shake-->
+	<section class="banner-shake">
+    	<img src="images/bg-shake.jpg">
+        <!--活动规则-->
+        <div class="rule-link">
+        	<!--<a href="./rules.html">活动规则&gt;</a><br>-->
+        	<a href="./mine-prize.html">我的奖品&gt;</a>
+        </div>
+        <div class="shake-box">
+        	<div class="circle"><!--熊猫的手和背景-->
+            	<img src="images/circle-b.png"><!--背景-->
+                <!--熊猫的手-->
+                <div class="hand-panda" id="animationSandbox">
+                	<img src="images/hand-panda.png">
+                </div>
+                <!--圆框上的左右两边压线的熊猫钱币---装饰-->
+                <div class="panda-money">
+                	<div class="left-panda"><img src="images/money-panda-s.png"></div>
+                    <div class="right-panda"><img src="images/money-panda-b.png"></div>
+                </div>
+                <!--白色的圈--装饰-->
+                <div class="cirlce-white">
+                	<span class="up"><img src="images/circle-up.png"></span><!--上半圆-->
+                	<span class="down"><img src="images/circle-down.png"></span><!--下半圆-->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--oper-shake 尾部  -->
+    <section class="oper-shake">
+    	<img src="images/bg-btm-shake.jpg">
+        <div class="oper">
+            <!-- 去兑换 -->
+        	<a href="javascript:void(0);" class="btn" id="playMusic"><img src="images/btn-recharge.png"></a>
+            <!--<a href="摇奖记录.html">摇奖记录</a>-->
+        </div>
+    </section>
+
+
+    <!--透明层-->
+    <div class="mask"></div>
+    <!--弹出层-->
+    <div class="result-pop err" style="display:none;"><!--失败-->    	
+        <div class="result-hd"><img src="images/letter-hd.png"></div><!--hd-->
+    	<div class="txt-msg">网不太好呀!再试试呢!</div>
+        <a href="javascript:void(0);" class="btn"><img src="images/btn-know.png"></a>
+    </div>
+    <div class="result-pop succ" style="display:none;"><!--成功-->
+    	<div class="result-hd"><img src="images/letter-hd.png"></div><!--hd-->
+    	<div class="txt-msg">恭喜您,获得30积分<br>明天继续!</div>
+        <a href="javascript:void(0);" class="btn"><img src="images/btn-know.png"></a>
+    </div>
+
+     <script>
+         $(function() {
+
+             var audio = document.getElementById("shakemusic");
+             var openAudio = document.getElementById("openmusic");
+
+             /**
+              * 为了实现它，就需要用到HTML5的DeviceOrientation特性。它提供的DeviceMotion事件封装了设备的运动传感器时间，
+              * 通过改时间可以获取设备的运动状态、加速度等数据（另还有deviceOrientation事件提供了设备角度、朝向等信息）。
+              * 而通过DeviceMotion对设备运动状态的判断，则可以帮助我们在网页上就实现“摇一摇”的交互效果。
+              * */
+             if (window.DeviceMotionEvent){
+                 var speed = 25;
+                 var x = t = z = lastX = lastY = lastZ = 0;
+                 window.addEventListener('devicemotion',
+                     function () {
+                         var acceleration = event.accelerationIncludingGravity;
+                         x = acceleration.x;
+                         y = acceleration.y;
+                         if (Math.abs(x - lastX) > speed || Math.abs(y - lastY) > speed) {
+                            //摇一摇成功
+                             callback();
+                         };
+                         lastX = x;
+                         lastY = y;
+                     },false);
+             };
+
+             $('#playMusic').on('click',function () {
+                 callback();
+             });
+
+             var isReady=true;
+             //摇一摇成功回调
+             function callback() {
+                 if(!isReady){
+                     return;
+                 }
+                 isReady=false;
+                 audio = document.getElementById("shakemusic");
+                 openAudio = document.getElementById("openmusic");
+                 audio.play();
+                 //熊脑手臂抖动															//在动画完成之后
+                 $('#animationSandbox').removeClass().addClass('shake' + ' animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+                     $(this).removeClass();
+                 });
+                 setTimeout(function(){
+                     audio.pause();
+                     openAudio.play();
+                     //获取中奖数据
+                     $.get('',function (data) {
+
+
+
+                     });
+                     //打开遮罩
+                     $('.mask').css('display', 'block');
+                     //打开成功弹窗
+                     $('.err').css('display', 'block');
+                 }, 1500);
+             }
+
+             $('.result-pop .btn').on('click',function () {
+                 $('.mask').hide();
+                 $('.result-pop').hide();
+                 isReady=true;
+             });
+
+
+
+         });
+     </script>
+</body>
+</html>

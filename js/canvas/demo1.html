@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>context</title>
+    <style>
+        .canvas-class{
+            border: 1px solid #0071BD;
+        }
+    </style>
+</head>
+<body>
+<p>一个画布在网页中是一个矩形框，通过 canvas 元素来绘制.</p>
+<canvas id="canvas1" class="canvas-class" width="500" height="500">您的浏览器不支持 HTML5 canvas 标签。</canvas>
+<script>
+    var c=document.querySelector("#canvas1");
+//    大多数 Canvas 绘图 API 都没有定义在 <canvas> 元素本身上，而是定义在通过画布的 getContext() 方法获得的一个“绘图环境”对象上。
+//    这个方法是用来获得渲染上下文和它的绘画功能。getContext()只有一个参数，上下文的格式
+    var ctx=c.getContext("2d");
+    ctx.fillStyle="#FF0000";
+    ctx.fillRect(0,0,200,200);
+
+    //和svg一样没有z-index，谁后画，谁在上边
+    ctx.fillStyle="#000110";
+    ctx.fillRect(100,100,200,200);
+
+
+</script>
+</body>
+</html>

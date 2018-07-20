@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../vendor/jquery.form.min.js"></script>
+    <style>
+        .hid{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<form id="myForm" action="/upload/index.php" method="post"  enctype="multipart/form-data">
+    Name: <input type="text" name="name" />
+    Comment: <textarea name="comment"></textarea>
+    <input class="hid file" id="myfile1"  type="file" name="myfile1">
+    <br>
+
+    <!--<input type="submit" value="Submit Comment" />-->
+</form>
+<div id="huixian"></div>
+<button id="btn">
+    新增
+</button>
+<button id="sub">提交</button>
+<hr>
+<p id="lo"></p>
+<p id="num"></p>
+<p id="process"></p>
+<p id="res">
+
+</p>
+<hr>
+<div id="target"></div>
+
+<script>
+    $(function(){
+
+        var list=[];
+        var num=1;
+        var filePre='myfile';
+        $("#btn").click(function () {
+            $("#"+filePre+num).click();
+            num++;
+            $('#myForm').append('<input id="'+filePre+num+'" class="hid file"  type="file" name="'+filePre+num+'">');
+        });
+        //回显
+        $('.file').on('change',function (event) {
+            console.log(event);
+            var id=event.target.id;
+            var file;
+            //回显
+            $('#huixian').append('<img class="huixianPic" data-id="'+id+'" src="..." />');
+
+        });
+
+        //删除
+        $(".huixianPic").on('click',function () {
+            var id=$(this).attr('data-id');
+            $("#"+id).remove();
+        })
+
+        // prepare Options Object
+        var options = {
+            target:     '#target',
+            url:        '/upload/index.php',
+            success:    function(response,statusText,xhr,jqEle) {
+                console.log(response);
+                console.log(statusText);
+                console.log(xhr);
+                console.log(jqEle);
+                $("#res").text("upload ok");
+            },
+            uploadProgress: function (event,lo,num,prercentcomplete) {
+                $("#lo").text(lo);
+                $("#num").text(num);
+                $("#process").text(prercentcomplete);
+            }
+            
+        };
+
+        $('#sub').click(function () {
+
+            $("#"+filePre+num).remove();
+            $('#myForm').ajaxSubmit(options);
+        })
+
+    })
+</script>
+</body>
+</html>

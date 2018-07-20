@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+
+</head>
+<body>
+<div class="content-reset">
+
+很长的文字
+半年前学业水平考试发布成绩的时候，班里一个妹子忘了自己的学籍号后面几位，聊天的时候向我抱怨。现在回想起来，她应该也不是向我求助，但是说者无意，听者有心。于是我立马就用 Node.js 写了个脚本，用她的名字挨个穷举，分分钟就帮她查到成绩了。现在想起来着实有些奇怪，因为我只用了十五分钟，十五分钟内我分析了网页结构和请求格式，本来不太熟的 async 和 request 也用的驾轻就熟，那天 npm 也快的出奇，并且查询成绩的网站也没有因为访问量多而为难我。一切就那么顺理成章地完成了。最重要的是，我以后再也没有那么高效地写过代码，也许，那可能就是我写过的最好的 Node.js 脚本了。
+
+
+</div>
+<script>
+    /**
+     * 添加版权
+     */
+    const addCopyright = () => {
+        const genCopy = () => {
+            return [
+                '',
+                '',
+                '作者：xiedajian',
+                '链接：https://github.com/xiedajian',
+                '来源：谢大见',
+                '著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。',
+            ]
+        }
+
+        $('.content-reset').on('copy', function (event) {
+            if (!window.getSelection) {
+                return
+            }
+
+            var selectionObj = window.getSelection()
+            var author = $(this).data('author') || 'HacPai'
+            var link = $(this).data('link') || location.href
+
+            // 选择的文字数量小于128不添加
+            if (selectionObj.toString().length < 128) {
+                return
+            }
+
+            if (selectionObj.rangeCount) {
+                var container = document.createElement("div");
+                for (var i = 0, len = selectionObj.rangeCount; i < len; ++i) {
+                    container.appendChild(selectionObj.getRangeAt(i).cloneContents());
+                }
+            }
+
+            if ('object' === typeof event.originalEvent.clipboardData) {
+                event.originalEvent.clipboardData.setData('text/html',  container.innerHTML + genCopy().join('<br>'))
+                container.remove();
+                event.originalEvent.clipboardData.setData('text/plain', selectionObj.toString() + genCopy().join('\n'))
+                event.preventDefault();
+                return
+            }
+
+            $('body').append('<div id="symFixCopy" style="position: fixed; left: -9999px;">' +
+                selectionObj.toString() + genCopy().join('<br>') + '</div>')
+            window.getSelection().selectAllChildren($('#symFixCopy')[0])
+            setTimeout(function () {
+                $('#symFixCopy').remove()
+            }, 200)
+        })
+    }
+    addCopyright();
+</script>
+</body>
+</html>

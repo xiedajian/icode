@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>网页截图采集到花瓣</title>
+    <meta charset="utf-8">
+    <meta name="copyright" content="huaban.com"/>
+    <link href="css/edit.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <header id="header">
+      <div class="toolbar">
+        <ul>
+          <li id="btn_crop">
+            <div class="tool-icon crop" title="裁剪"><i></i></div>
+          </li>
+          <li id="btn_rectangle">
+            <div class="tool-icon rectangle" title="矩形"><i></i></div>
+          </li>
+          <li id="btn_radius_rectangle">
+            <div class="tool-icon radius-rectangle" title="圆角矩形"><i></i></div>
+          </li>
+          <li id="btn_ellipse">
+            <div class="tool-icon ellipse" title="圆"><i></i></div>
+          </li>
+          <li id="btn_line">
+            <div class="tool-icon line" title="直线"><i></i></div>
+          </li>
+          <li id="btn_arrow">
+            <div class="tool-icon arrow" title="箭头"><i></i></div>
+          </li>
+          <li id="btn_blur">
+            <div class="tool-icon blur" title="模糊"><i></i></div>
+          </li>
+          <li id="btn_text">
+            <div class="tool-icon font" title="字体"><i></i></div>
+            <div id="fonts_pad" class="tool-dropdown">
+              <div id="size_12" class="tool-option">
+                <i></i>
+                <span style="font-size: 12px">小</span>
+              </div>
+              <div id="size_14" class="tool-option">
+                <i></i>
+                <span style="font-size: 14px">中</span>
+              </div>
+              <div id="size_18" class="tool-option">
+                <i></i>
+                <span style="font-size: 18px">大</span>
+              </div>
+              <div id="size_24" class="tool-option">
+                <i></i>
+                <span style="font-size: 24px">特大</span>
+              </div>
+            </div>
+          </li>
+          <li id="btn_color" class="separate">
+            <div class="tool-icon color"><i id="color_box"></i>颜色</div>
+            <div id="colors_pad" class="tool-dropdown"></div>
+          </li>
+          <li id="btn_undo" class="separate disabled">
+            <div class="tool-icon undo"><i></i>撤消</div>
+          </li>
+        </ul>
+      </div>
+      <div class="toolbar right">
+        <ul>
+          <li id="btn_save" class="separate">
+            <div  class="tool-icon save"><i></i>保存到本地</div>
+          </li>
+          <li id="btn_upload" class="separate">
+            <div  class="tool-icon pin"><i></i>采集到花瓣</div>
+          </li>
+        </ul>
+      </div>
+      <div id="btn_close"><i></i></div>
+      <div class="clear"></div>
+    </header>
+    <div id="show_box">
+      <div id="photo">
+        <canvas id="canvas"></canvas>
+        <canvas id="mask_canvas"></canvas>
+        <div id="crop_wrapper" class=""></div>
+        <div class="layer" id="layer0"></div>
+      </div>
+    </div>
+    <div id="overlay"></div>
+    <script src="js/ajax.js"></script>
+    <script src="js/uploadr.js"></script>
+    <script src="js/canvas.js"></script>
+    <script src="js/edit.js"></script>
+  </body>
+</html>

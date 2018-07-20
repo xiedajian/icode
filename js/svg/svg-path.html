@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>transform属性</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body>
+
+<svg width="1000" height="800" style="background-color: gainsboro">
+
+    <g transform="rotate(45 100 100)">
+        <rect x="0" y="0" width="200" height="200" fill="transparent" onmouseover="mouseoverEvent(this)"/>
+    </g>
+
+    <!--<path d="M 100 100 L 100 200  L 200 200 L 100 100" fill="transparent" stroke="red">hello</path>-->
+    <!--<path d="M 100 100 V 200 H 200 V 100 L 100 100" fill="blue"></path>-->
+    <!--<path d="M 100 100 H 200 V 200 H -100 Z" fill="blue"></path>-->
+    <!--<path d="M 100 0 L 150 200 L 0 100 H 200 L 50 200 L 100 0 " fill="transparent" stroke="black"></path>-->
+    <!--<path d="M10 10 C 20 20, 40 20, 50 10" stroke="red" fill="transparent"/>-->
+    <!--<path d="M100 100 C 200 400 ,400 400 ,500 100" stroke="red" fill="transparent"></path>-->
+    <!--<path d="M100 100 C 200 200 ,400 200 ,500 100" stroke="red" fill="transparent"></path>-->
+    <!--<path d="M100 100 C 200 300 ,400 300 ,500 100" stroke="red" fill="transparent"></path>-->
+    <!--<path d="M100 100 S 200 300 ,500 100" stroke="red" fill="transparent"></path>-->
+    <!--<text text-anchor="end">hello</text>-->
+
+
+
+</svg>
+<script>
+    function mouseoverEvent(e) {
+        console.log('move over');
+        console.log($(e).attr('fill'));
+        $(e).attr('fill','blue');
+    }
+</script>
+</body>
+</html>

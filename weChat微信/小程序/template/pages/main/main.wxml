@@ -1,0 +1,42 @@
+<!--main.wxml-->
+<view class="page">
+
+       <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500">
+            <swiper-item>
+              <image src="/images/1495588800716222.jpg"  class="slide-image" style="width:100%;"  mode="scaleToFill"/>
+            </swiper-item>
+            <swiper-item>
+              <image src="/images/44.png" class="slide-image"  mode="scaleToFill"/>
+            </swiper-item>
+            <swiper-item>
+              <image src="/images/baoming.png" class="slide-image" mode="scaleToFill"/>
+            </swiper-item>
+       </swiper>
+
+  <view>
+    <view class="sub-title">
+    店主推荐
+    </view>
+    <view class="li-good">
+      <view>
+        商品1
+      </view>
+    </view>
+    <view class="li-good">
+      <view>
+        商品1
+      </view>
+    </view>
+        <view class="li-good">
+      <view>
+        商品1
+      </view>
+    </view>
+        <view class="li-good">
+      <view>
+        商品1
+      </view>
+    </view>
+  </view>
+
+</view>

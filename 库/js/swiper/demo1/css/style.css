@@ -1,0 +1,90 @@
+@charset "utf-8";
+/* theme:摇一摇 样式 */
+/* time:2016-03-16 */
+/* author:zg */
+
+img{display:block;width:100%;}
+a{text-decoration:none;}
+body{font-family:"微软雅黑";}
+
+
+/*摇一摇主页*/
+.banner-shake{position:relative;}
+.shake-box{position:absolute;top:23.9%;left:20.5%;width:59%;}
+.shake-box .circle{position:relative;}
+.hand-panda,#animationSandbox{position:absolute;bottom:7%;left:0;z-index:110;}
+.panda-money .left-panda{width:36.4%;left:-10%;position:absolute;bottom:0.3rem;z-index:130;}
+.panda-money .right-panda{width:30.34%;right:-11%;position:absolute;bottom:3.1rem;z-index:130;}
+.cirlce-white .down{width:100%;position:absolute;bottom:0;left:0;z-index:120;}
+.cirlce-white .up{width:100%;position:absolute;top:0;left:0;z-index:100;}
+
+.oper-shake{position:relative;}
+.oper{position:absolute;width:100%;top: 30%;left:0; text-align:center;}
+.oper img{width:52%;margin:0 auto 1.3rem auto;}
+.oper a{color:#fff;font-size:0.92rem;}
+
+/*活动规则 链接 */
+.rule-link{position:absolute;top:0.85rem;right:0.85rem;}
+.rule-link a{color:#fff;font-size:0.92rem;}
+
+/*透明层*/
+.mask{position:fixed;top:0;left:0;z-index:150;background:rgba(0,0,0,0.56);width:100%;height:100%;display:none;}
+/*弹出层*/
+.result-pop{background-color:#ff5554;width:88%;position:fixed;top:7rem;left:6%;z-index:155;border:1px solid #f87979;
+border-radius:0.8rem;
+background-image:-moz-linear-gradient(top, #ff6767, #ff5353); /* moz */
+background-image:-webkit-linear-gradient(top, #ff6767, #ff5353); /* webkit */
+background-image:-ms-linear-gradient(top, #ff6767, #ff5353); /* ms */
+background-image:-o-linear-gradient(top, #ff6767, #ff5353); /* o */
+}
+.result-hd{position:absolute;top:-2rem;left:39%;z-index:160;width:22%;}
+.result-hd img{}
+.result-pop .txt-msg{font-size:1.46rem;color:#fff;padding-top:4.6rem;width:100%;text-align:center;}
+.result-pop a.btn{display:block;width:42.8%;margin:2.5rem auto 1.2rem auto;}
+
+
+/*抽奖记录*/
+.note-raffle{width:90.625%;margin:1rem auto;}
+.note-raffle .table{border:1px solid #49c4f1;border-radius:0.5rem;overflow:hidden;}
+.note-raffle .table .th,.note-raffle .table .td{width:33.33333%;float:left;text-align:center;}
+.note-raffle .table .tr-title{background-color:#49c4f1;width:100%;overflow:hidden;}
+.note-raffle .table .th{background-color:#49c4f1;color:#fff;padding:0.4rem 0;line-height:1.3rem;font-size:0.77rem;}
+.note-raffle .table .td{color:#424242;font-size:1.23rem;height:2rem;line-height:2rem;margin:1rem 0;}
+.note-raffle .table .td:last-child{border:none;}
+.note-raffle .table .td:nth-child(2){position:relative;}
+.note-raffle .table .td:nth-child(2)::after{content:"";width:1px;height:2rem;position:absolute;top:0;right:0;background-color:#49c4f1;}
+.note-raffle .table .td:nth-child(2)::before{content:"";width:1px;height:2rem;position:absolute;top:0;left:0;background-color:#49c4f1;}
+
+.note-raffle .list{border:1px solid #49c4f1;border-radius:0.5rem;overflow:hidden;margin-top:1.46rem;}
+.note-raffle .list .tit{background-color:#49c4f1;color:#fff;height:2.34rem;line-height:2.34rem;font-size:0.77rem;}
+.note-raffle .list .odd-item{width:60%;float:left;text-align:center;}
+.note-raffle .list .even-item{width:40%;float:left;text-align:center;}
+.note-raffle ul{overflow:hidden;padding:0 0.77rem 2rem 0.77rem;}
+.note-raffle ul li{height:2.85rem;line-height:2.85rem;border-bottom:1px solid #e4e4e4;color:#424242;font-size:0.85rem;}
+
+
+/*抽奖记录为空*/
+.note-raffle .empty{width:38.0125%;margin:12rem auto 0 auto;}
+.note-raffle p{text-align:center;width:100%;margin-top:1.4rem;font-size:1rem;}
+
+/*rule-con 活动规则*/
+.rule-con{padding:1.12rem;background-color:#fef1d1;overflow:hidden;}
+.rule-con p{padding-bottom:0.5rem;font-size:0.923rem;line-height:1.35rem;color:#5b4c41;}
+
+/*明日再约*/
+.tomorrow-active{position:absolute;z-index:170;top:21%;left:0;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

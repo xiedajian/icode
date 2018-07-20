@@ -1,0 +1,566 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge" >
+    <meta name="viewport"   content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <title>测试Aliplayer</title>
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="//g.alicdn.com/de/prismplayer/2.6.0/skins/default/aliplayer-min.css" />
+    <script type="text/javascript" src="//g.alicdn.com/de/prismplayer/2.6.0/aliplayer-min.js"></script>
+    <style>
+
+        .msg-box{
+            position: fixed;
+            z-index: 10000;
+            display: none;
+            width: 100%;
+            height: 50px;
+            background: green;
+            top: 0;
+            left: 0;
+            text-align: center;
+        } 
+/*         .enter-x5-player video.center
+        {
+            object-position:50% 50% !important;
+        }
+
+        .prism-progress-cursor 
+        {
+          margin-left:0px !important;
+        }
+
+        .enter-x5-player video
+        {
+            object-position: 0px 10px;
+            height:auto !important;
+
+        }
+
+
+        video::-webkit-media-controls {
+          display:none !important;
+        } */
+
+
+    </style>
+</head>
+<body>
+
+<div class="msg-box"></div>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<!-- <div  class="prism-player" id="J_prismPlayer"></div> -->
+<div  class="prism-player" id="J_prismPlayer2"></div>
+<div  class="prism-player" id="J_prismPlayer3"></div>
+
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<p>xxx</p>
+<button id="full">全屏</button>
+
+    <script>
+class VideoPlayer
+{
+    constructor(props,callback) {
+        this.player;
+        this.props = props;
+        
+        this._setup();
+        this._bindEvent();
+        this._firstFullscreen = true;
+    }
+
+    // 更换视频
+    loadByUrl(url)
+    {
+        if(this.player)
+            this.player.loadByUrl(url);
+    }
+
+    // 销毁
+    dispose()
+    {
+        if(this.player)
+        {
+            this.player.dispose();
+            Zepto('#'+this.props.id).empty();
+        }
+    }
+
+    _setup()
+    {
+        this.player = new Aliplayer(this.props,function(player){
+            $('video').attr('x5-playsinline',"");
+            // $('video').attr('x-webkit-airplay',"allow");
+        });
+    }
+
+    _bindEvent()
+    {
+        let that = this;
+        this.player.on('ready',  (e)=>{
+            console.log('ready');
+        });
+
+        this.player.on('play',(e)=>{
+            console.log('play');
+
+        });
+
+        this.player.on('ended',(e)=>{
+            console.log('ended');
+
+            });
+        this.player.on('pause',(e)=>{
+            console.log('pause');
+
+            });
+    
+        this.player.on('requestFullScreen', (e)=>{
+                let video=$(that.player.tag);
+                video.addClass('center');
+                if((/iPhone|iPad|iPod/i).test(navigator.userAgent))
+                {
+                    $(that.player.el()).removeClass('prism-fullscreen');
+                }
+        });
+
+        this.player.on('x5cancelFullScreen',(e)=>{
+            let service = that.player.fullscreenService;
+            if(service.getIsFullScreen())
+            {
+                service.cancelFullScreen()
+            }
+            $(that.player.el()).removeClass('enter-x5-player');
+
+            var layout = that.player.originalLayout;
+            if(layout)
+            {
+                that.player.tag.style.height = layout.video.height;
+            }h
+        });
+
+        this.player.on('x5requestFullScreen',(e)=>{
+            //调整视频的位置
+            $(that.player.el()).addClass('enter-x5-player');
+            var screenHeight = document.body.clientHeight*(window.devicePixelRatio||1)+ "px";
+            that.player.tag.style.height = screenHeight;
+            let video=$(that.player.tag);
+            setTimeout(()=>{
+                video.removeClass('x5-top-left');
+            });
+        });
+        this.player.on('cancelFullScreen', (e)=>{
+            let video=$(that.player.tag);
+            setTimeout(()=>{
+                alert(video.length());
+               video.removeClass('center');
+               video.removeClass('x5-top-left');
+            })
+        });
+        //微信左上角退出按钮触发是，关闭页面
+        this.player.tag.addEventListener("x5videoexitfullscreen", ()=>{
+            // if(WeixinJSBridge)
+            //     WeixinJSBridge.call('closeWindow');
+            // else
+            // {
+            //     try
+            //     {
+            //         window.location.refresh();
+            //     }catch(e)
+            //     {}
+            // }
+        });
+
+        // $(document).on('WeixinJSBridgeReady',()=>{ 
+        //     let video=$(that.player.el()).find('video')[0];
+        //     video.play();
+        // });
+    }
+
+    _unbindEvent()
+    {
+        let that = this;
+        this.player.off('ready',function  (e) {
+        // 解决ios不自动播放的问题
+        if($.os.ios)
+           that._autoPlay();
+        console.log('ready');
+
+        });
+
+        this.player.off('play',function  (e) {
+            console.log('play');
+
+            });
+
+        this.player.off('ended',function  (e) {
+            console.log('ended');
+
+            });
+        this.player.off('pause',function  (e) {
+            console.log('pause');
+
+            });
+    }
+}
+
+
+    
+    /**
+    *   
+    *
+    **/
+
+
+    // 消息展示
+    function showMsg(str){
+        $('.msg-box').html(str);
+         $('.msg-box').show();
+        setTimeout(function(){
+            $('.msg-box').hide();
+        }, 2000);
+    }
+
+
+    // new Aliplayer({
+    //         id: "J_prismPlayer",
+    //         source:'{"HD":"http://common.qupai.me/player/qupai.mp4","SD":"http://common.qupai.me/player/qupai.mp4"}',
+    //         // vid:''
+    //         // playauth
+    //         width:"100%",   //播放器高度
+    //         height:"300px",
+    //         videoWidth:'100%',  // 视频高度
+    //         videoHeight:'300px',
+    //         preload: true,       //播放器自动加载
+    //         cover:"",           // 播放器默认封面图片
+    //         isLive:false,       //播放内容是否为直播
+    //         autoplay: true,     // 播放器是否自动播放，在移动端autoplay属性会失效
+    //         rePlay:false,       // 播放器自动循环播放
+    //         useH5Prism:true,   // 指定使用H5播放器
+    //         useFlashPrism:false,    // 指定使用Flash播放器
+    //         playsinline:true,       // H5是否内置播放，有的Android浏览器不起作用
+    //         showBuffer:true,    // 显示播放时缓冲图标，默认true
+    //         // skinRes:'',     // 皮肤图片，不建议随意修改该字段，如要修改请参照皮肤定制
+    //         controlBarVisibility:"always",  // 控制面板的实现，默认为‘hover’，可选的值为：‘click’、‘hover’、‘always’
+    //         showBarTime: '3000',    // 控制栏自动隐藏时间（ms）,
+    //         // waterMark:'',       // 添加水印。数据格式：url|pos|size|alpha（目前仅支持flash）
+    //         // extraInfo:'',        // 说明：JSON串用于定制性接口参数
+    //         enableSystemMenu:false,     // 是否允许系统右键菜单显示，默认为false
+    //         // format:'',
+    //         // mediaType:'',
+    //         // qualitySort:'',
+    //         x5_type:'h5',     // 声明启用同层H5播放器，启用时设置的值为‘h5’
+    //         x5_fullscreen:true,    //声明视频播放时是否进入到TBS的全屏模式，默认为false
+    //         x5_video_position:'center',    //声明视频播在界面上的位置，默认为“center”,可选值为：“top”，“center”
+    //         x5_orientation:'portraint',   // 声明TBS播放器支持的方向，可选值：landscape：横屏 portraint：竖屏 
+    //         // autoPlayDelay:1,     // 延迟播放时间，单位为秒
+    //         // autoPlayDelayDisplayText:'',     // 延迟播放提示文本
+    //         // language:'',     // 国际化，默认为‘zh-cn’
+    //         // languageTexts:{},   // 自定义国际化文本json结构，
+
+    //         // skinLayout:[]
+    //     },function(player){
+    //         player.play();
+    //         console.log("播放器创建了。");
+
+    //     }
+    // );
+
+
+// vid = linkeddbvideo84e864f1467d4a1286f7f555a35600f8
+
+    // aliplay点播视频获取凭证的方式 播放视频
+
+        var videoId='84e864f1467d4a1286f7f555a35600f8';
+
+        $.get('https://dy.linkeddb.com/video/play_auth/'+videoId+'/',function(res){
+
+            var _res=JSON.parse(res);
+            console.log(_res);
+            var data={
+                vid:_res.VideoMeta.VideoId,
+                playauth:_res.PlayAuth,
+                cover:_res.VideoMeta.CoverURL,
+            };
+
+            var player = new Aliplayer({
+                    id: 'J_prismPlayer2',
+                    autoplay: false,
+                    isLive:false,
+                    preload: false, 
+                    rePlay:false,
+                    // width:"100%",
+                    height :'300px',
+                    // videoWidth:'100%',
+                    // videoHeight:'40px',
+
+                    playsinline:true,
+                    controlBarVisibility:'always',
+                    // source:"//common.qupai.me/player/qupai.mp4",
+                    useH5Prism:true,
+                    useFlashPrism:false,
+                     // x5_video_position:'normal',
+                    //prismplayer 2.0.1版本支持的属性，主要用户实现在android 微信上的同层播放
+                     x5_type:'xx', //通过 video 属性 “x5-video-player-type” 声明启用同层H5播放器，支持的值：h5 https://x5.tencent.com/tbs/guide/video.html
+                                //播放方式二：点播用户推荐
+                    vid : data.vid,
+                    playauth : data.playauth,
+                    cover: data.cover,
+                             skinLayout:[{"name":"controlBar","align":"blabs","x":0,"y":0,"children":[{"name":"playButton","align":"tl","x":15,"y":12},
+                             {"name":"timeDisplay","align":"tl","x":10,"y":7},
+                    {"name":"fullScreenButton","align":"tr","x":10,"y":10},
+                    {"name":"streamButton","align":"tr","x":20,"y":10},
+                    {"name":"progress","align":"blabs","x":0,"y":44},
+                    ]},
+                    {"name":"bigPlayButton","align":"blabs","x":150,"y":130}]
+            },function(player){
+                    $('video').attr('x5-playsinline',"");
+                    $('video').attr('x-webkit-airplay',"allow");
+            });
+
+
+            player.on("requestFullScreen", function(){
+                 $(player.el()).removeClass('prism-fullscreen');
+            });
+
+        });
+
+                //         // let video=$(player.el()).find('video')[0];
+
+    //         // // 微信中自动播放
+    //         // $(document).on('WeixinJSBridgeReady',()=>{ 
+    //         //     video.play();
+    //         // });
+            // $('video').attr('x5-playsinline',"");
+            // $('video').attr('x-webkit-airplay',"allow");
+            // console.log('x5');
+
+        // });
+
+
+    
+// var player = new VideoPlayer({
+//             id: 'J_prismPlayer2',
+//             autoplay: false,
+//             isLive:false,
+//             // width:"100%",
+//             height :'400px',
+//             // videoWidth:'100%',
+//             videoHeight:'400px',
+
+//             playsinline:true,
+//             controlBarVisibility:'always',
+//             source:"//common.qupai.me/player/qupai.mp4",
+//             useH5Prism:true,
+//             useFlashPrism:false,
+//            x5_video_position:'normal',
+//           //prismplayer 2.0.1版本支持的属性，主要用户实现在android 微信上的同层播放
+//           x5_type:'h5', //通过 video 属性 “x5-video-player-type” 声明启用同层H5播放器，支持的值：h5 https://x5.tencent.com/tbs/guide/video.html
+//             cover: 'http://liveroom-img.oss-cn-qingdao.aliyuncs.com/logo.png'
+// });    
+// new VideoPlayer({
+//             id: 'J_prismPlayer3',
+//             autoplay: false,
+//             isLive:false,
+//             // width:"100%",
+//             height :'400px',
+//             // videoWidth:'100%',
+//             videoHeight:'400px',
+//             playsinline:true,
+//             controlBarVisibility:'always',
+//             source:"//common.qupai.me/player/qupai.mp4",
+//             useH5Prism:true,
+//             useFlashPrism:false,
+//            x5_video_position:'normal',
+//           //prismplayer 2.0.1版本支持的属性，主要用户实现在android 微信上的同层播放
+//           x5_type:'h5', //通过 video 属性 “x5-video-player-type” 声明启用同层H5播放器，支持的值：h5 https://x5.tencent.com/tbs/guide/video.html
+//             cover: 'http://liveroom-img.oss-cn-qingdao.aliyuncs.com/logo.png'
+// });
+
+
+    // new Aliplayer({
+    //         id: 'J_prismPlayer2',
+    //         autoplay: true,
+    //         isLive:false,
+
+    //         playsinline:true,
+    //         controlBarVisibility:'always',   // hover 在ios有问题
+    //         // showBarTime：'2000',
+    //         source:"//common.qupai.me/player/qupai.mp4",
+    //         useH5Prism:true,
+    //         useFlashPrism:false,
+    //         x5_fullscreen:true,
+    //         x5_type:'h5',
+    //          //prismplayer 2.0.1版本支持的属性，主要用户实现在android 微信上的同层播放
+    //          // x5_type:'h5', //通过 video 属性 “x5-video-player-type” 声明启用同层H5播放器，支持的值：h5 https://x5.tencent.com/tbs/guide/video.html
+    //          cover: 'http://liveroom-img.oss-cn-qingdao.aliyuncs.com/logo.png',
+    //      skinLayout:[{"name":"controlBar","align":"blabs","x":0,"y":0,"children":[{"name":"playButton","align":"tl","x":15,"y":12},
+    //             {"name":"timeDisplay","align":"tl","x":10,"y":7},
+    //             {"name":"fullScreenButton","align":"tr","x":10,"y":10},
+    //             {"name":"streamButton","align":"tr","x":20,"y":23},
+    //             {"name":"progress","align":"blabs","x":0,"y":44},
+    //             {"name":"speedButton","align":"tr","x":0,"y":10}]},
+    //             {"name":"bigPlayButton","align":"blabs","x":30,"y":80}]
+    //     },function(player){
+
+    //         // let video=$(player.el()).find('video')[0];
+
+    //         // // 微信中自动播放
+    //         // $(document).on('WeixinJSBridgeReady',()=>{ 
+    //         //     video.play();
+    //         // });
+    //         // $('video').attr('x5-playsinline',"");
+    //         // $('video').attr('x-webkit-airplay',"allow");
+    //         //  showMsg('播放器准备好了');
+
+    //     }
+    // );
+
+
+// var firstFullscreen = true;
+    
+    // player.on('requestFullScreen', function(e){
+    //     // if(firstFullscreen){
+    //     //     player.cancelFullScreen();
+    //     //     firstFullscreen = false;
+
+    //     // }else {
+    //     //     let video = $(player.el()).find('video');
+    //     //     video.addClass('center');
+    //     // }
+
+    //    //  let video=$(player.tag);
+    //    //  // console.log('requestFullScreen');
+    //    //  // alert('requestFullScreen');
+    //    //  // video.addClass('center');
+    //    //  showMsg('requestFullScreen')
+    //    // if((/iPhone|iPad|iPod/i).test(navigator.userAgent))
+    //    //  {
+    //         $(player.el()).removeClass('prism-fullscreen');
+    //         let service = player.fullscreenService;
+    //         if(service.getIsFullScreen())
+    //         {
+    //             service.cancelFullScreen()
+    //         }
+    //    //      // $(that.player.el()).removeClass('enter-x5-player');
+    //    //  }
+
+    // });
+
+
+// var setLayout = function()
+// {    
+//     //设置播放器容器的高度
+//     var height = '800px'; //根据实际情况设置高度
+//     player.el().style.width = window.innerWidth+'px';
+
+//     // player.el().style.height = window.innerHeight-50+'px';
+// }
+// window.onresize = function(){
+//     setLayout();
+// }
+
+
+
+    // player.on('cancelFullScreen', function(e){
+    //     showMsg('cancelFullScreen');
+    //         let video = $(player.el()).find('video');
+    //         video.removeClass('center');
+    // });
+
+
+    // $('#full').on('click',function(){
+    //     try{
+    //           var service = player.fullscreenService;
+    //          service.requestFullScreen();
+    //     }catch(e){
+    //         showMsg(e);
+    //     }
+
+    // })
+
+
+
+    // player.on('x5cancelFullScreen', function(e){
+    //     showMsg('x5cancelFullScreen');
+
+    // });
+
+    // player.on('x5requestFullScreen', function(e){
+    //     showMsg('x5requestFullScreen');
+    //          var screenHeight = document.body.clientHeight*(window.devicePixelRatio||1)+ "px";
+    //       player.el().style.height = screenHeight;
+
+    // });
+
+    // player.tag.addEventListener("x5videoexitfullscreen", ()=>{
+    //     if(WeixinJSBridge)
+    //         WeixinJSBridge.call('closeWindow');
+    //     else
+    //     {
+    //         try
+    //         {
+    //             window.location.refresh();
+    //         }catch(e)
+    //         {}
+    //     }
+    // });
+
+</script>
+</body>

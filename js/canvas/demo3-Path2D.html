@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Path2D 对象</title>
+    <style>
+        .canvas-class{
+            border: 1px solid #0071BD;
+        }
+    </style>
+</head>
+<body>
+<p>一个画布在网页中是一个矩形框，通过 canvas 元素来绘制.</p>
+<canvas id="canvas" class="canvas-class" width="500" height="500">您的浏览器不支持 HTML5 canvas 标签。</canvas>
+<script>
+    /**
+     * 前面例子可以使用一系列的路径和绘画命令来把对象“画”在画布上。
+     * 为了简化代码和提高性能，Path2D对象已可以在较新版本的浏览器中使用，用来缓存或记录绘画命令，这样你将能快速地回顾路径
+     */
+    var canvas = document.getElementById('canvas');
+    if (canvas.getContext){
+        var ctx = canvas.getContext('2d');
+
+        var rectangle = new Path2D();
+        rectangle.rect(10, 10, 50, 50);
+
+        var circle = new Path2D();
+        circle.moveTo(125, 35);
+        circle.arc(100, 35, 25, 0, 2 * Math.PI);
+
+        ctx.stroke(rectangle);
+        ctx.fill(circle);
+
+
+
+
+    }
+
+
+
+
+</script>
+</body>
+</html>

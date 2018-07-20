@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>popup</title>
+    <script src="vendor/jquery-1.11.2.min.js"></script>
+    <style>
+        body{
+            width: 1500px;
+            height: 800px;
+        }
+        .btn{
+            width: 200px;
+            height: 30px;
+            border: 1px solid gainsboro;
+            border-radius: 5px;
+            background: none;
+            margin: 10px;
+        }
+        .redFont{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="btn" id="contres"></div>
+<button class="btn" id="getCount">获取高度</button>
+<button class="btn" id="captureVisibleTab">captureVisibleTab首屏</button>
+<button class="btn" id="captureVisibleTabFullScreen">captureVisibleTab全屏</button>
+
+<button class="btn" id="start">desktopCapture开始</button>
+<button class="btn" id="cancel">desktopCapture取消</button>
+<hr>
+<div id="res"></div>
+
+
+<script src="popup.js"></script>
+</body>
+</html>

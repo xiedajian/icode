@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>transform属性</title>
+</head>
+<body>
+
+<svg width="1000" height="800" viewBox="0 0 500 400" style="background-color: gainsboro">
+
+    <!--translate(x y) :表示x轴平移，y轴平移-->
+    <rect height="100" width="100" x="0" y="0" fill="#000" transform="translate(100 300)" target></rect>
+    <!--scale(x y)  : 表示x放大缩小的比例，y方向放大缩小的比例，这里x放大2倍，y方法2倍-->
+    <!--这里需要注意当SVG元素缩放时，整个坐标系被缩放-->
+    <rect height="100" width="100" x="0" y="0" fill="red" transform="scale(2 2)" ></rect>
+    <!--skewX(角度) ：表 竖线逆时针倾斜60度-->
+    <rect height="100" width="100" x="0" y="0" fill="green" transform="skewX(60)" ></rect>
+    <!--skewX(角度) ：表 竖线逆时针倾斜60度-->
+    <rect height="100" width="100" x="200" y="200" fill="blue" transform="rotate(50 200 200)" ></rect>
+
+
+
+
+</svg>
+</body>
+</html>

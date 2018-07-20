@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>页面内容</title>
+    <script src="vendor/jquery-1.11.2.min.js"></script>
+    <script src="vendor/vue.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .body{
+            /*border: 1px solid gainsboro;*/
+            border-radius: 10px;
+            background:#FFFFFF url("./img/linkeddb-bg.png")  repeat left;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .header{
+            text-align: center;
+            margin: 10px;
+        }
+        article {
+            flex: 1;
+        }
+        .content {
+            height: 100%;
+        }
+        .collecting{
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .collecting  .process-con{
+            position: absolute;
+            width: 200px;
+            height: 50px;
+            top:100px;
+            left: 50%;
+            margin-left: -100px;
+        }
+        .process-con p{
+            padding-left: 20px;
+        }
+        .process-con .process{
+            margin: 10px;
+            width: 100%;
+            height: 30px;
+            background: url("img/loading.gif") no-repeat ;
+        }
+        .content .btns{
+            height: 100%;
+        }
+        .content .btn-div{
+            width: 50%;
+            height: 50%;
+            box-sizing: border-box;
+            padding:30px 10px;
+            display: inline-block;
+        }
+        .content .btn-collect{
+            height: 100%;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor:pointer;
+        }
+        .content .btn-collect:hover{
+            background: #31c27c;
+        }
+        .title{
+            margin-bottom: 10px;
+        }
+        .redFont{
+            color: red;
+        }
+        .confirmCon{
+            margin: 10px;
+            padding: 10px;
+        }
+        ul{
+            overflow: scroll;
+            height: 287px;
+             width: 396px;
+        }
+        ul li{
+            margin: 10px;
+        }
+        .btn-add{
+            color: green;
+            width: 100%;
+            height: 30px;
+        }
+        .finalRes{
+            margin-top: 82px;
+        }
+        .finalRes p{
+            width: 100%;
+            text-align: center;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body class="body">
+    <header class="header">
+        <h1>星关系一键采集</h1>
+    </header>
+    <hr/>
+    <article id="app">
+
+        <div class="content" v-if="!isCollecting">
+            <!-- 一级菜单，分类 -->
+            <div class="btns" v-if="pageIndex === 1">
+                <div class="btn-div" v-for="it in btns">
+                    <div class="btn-collect" @click="collect(it.type)">{{it.text}}</div>
+                </div>
+            </div>
+
+            <!-- 二级菜单 -->
+            <div v-if="pageIndex === 2" class="confirmCon">
+                <p class="redFont title">{{title}}</p>
+                <p><button @click="collectAdd(type)" class="btn-add">新增数据</button></p>
+                <ul>
+                    <li v-for="item in items">
+                        <p>
+                            <a v-bind:href="item.url" target="_blank">预览</a>
+                            <button class="btn-update" @click="collectUpdate(type,item.neo_id)">更新此条数据</button>
+                            <span>名称:{{item.info}}</span>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 最终结果展示 -->
+            <div v-if="pageIndex === 3" class="finalRes">
+                <p class="redFont">{{message}}</p>
+                <p><a v-bind:href="finalResObj.url" target="_blank">预览</a></p>
+                <p>名称：{{finalResObj.info}}</p>
+                <p>ID：{{finalResObj.neo_id}}</p>
+
+            </div>
+        </div>
+
+        <div  class="collecting" v-if="isCollecting">
+            <div class="process-con">
+                <p>正在采集...</p>
+                <div class="process"></div>
+            </div>
+        </div>
+    </article>
+</body>
+<script src="iframe.js"></script>
+</html>

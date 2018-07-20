@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Doc Visualization</title>
+	<script src="../libs/d3.v4.js"></script>
+	<style>
+	</style>
+</head>
+<body>
+	<svg id="svg">
+	</svg>
+	<script>
+		window.onload = function() {
+			var w = 1000,
+				h = w,
+				svg = d3.select("#svg").attr("width", w).attr("height", h)
+					.attr("viewBox","0 0 "+w+" "+h),
+				clickOne = false,
+				timer;
+
+			var color = d3.scaleSequential(d3.interpolatePlasma);
+
+			d3.queue()
+				.defer(d3.json, "../dataset/doc.json")
+				.await(function(err, json) {
+					if (err) throw err;
+					json = d3.hierarchy(json).sum(function(d) {
+						return d.value ? d.value : 1;
+					})
+					color.domain([-(json.height/2),json.height])
+					draw(json);
+				})
+
+			function draw(root) {
+				var pack = d3.pack()
+					.size([w,h])
+					.padding(2)
+				var update = svg.selectAll("g.nodes")
+					.data(pack(root).descendants())
+				update.exit().remove();
+				var g_nodes = update.enter().append("g")
+					.attr("class","nodes").merge(update)
+					.attr("transform", function(d) {
+						return "translate(" + d.x + "," + d.y + ")";
+					})
+					.each(function(d) {
+						d.node = this;
+					})
+
+				g_nodes.selectAll("circle").remove()
+
+				var circles = g_nodes.append("circle")
+					.attr("r", function(d,i) {
+						return d.r;
+					})
+					.style("fill", function(d) {
+						return color(d.depth);
+					})
+					.on("mouseover",function(){
+						d3.select(this).attr("stroke","black")
+							.attr("stroke-width",2)
+					})
+					.on("mouseout",function(){
+						d3.select(this).attr("stroke","null")
+					})
+					.on("click",function(d){
+						if(clickOne){
+							console.log(d)
+							console.log("dbclick")
+							clickOne = false;
+							clearTimeout(timer);
+							svg.transition().duration(500)
+									.attr("viewBox",function(){
+									return "0 0 "+w+" "+h;
+								})
+						}else{
+							timer = setTimeout(function(){
+								console.log("click")
+								svg.transition().duration(1000)
+									.attr("viewBox",function(){
+									return (d.x-d.r)+" "+(d.y-d.r)+" "+(2*d.r)+" "+(2*d.r)
+								})
+								clickOne = false;
+							},200);
+							clickOne = true;
+						}
+					})
+				g_nodes.append("title")
+      				.text(function(d) { return d.data.title+"\n"+d.data.desc});
+			}
+		}
+	</script>
+</body>
+</html>

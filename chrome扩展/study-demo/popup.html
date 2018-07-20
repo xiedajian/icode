@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>popup</title>
+    <script src="./static/vendor/jquery-1.11.2.min.js"></script>
+    <script src="./static/vendor/vue.js"></script>
+    <style>
+        .btn{
+            width: 200px;
+            height: 30px;
+            border: 1px solid gainsboro;
+            border-radius: 5px;
+            background: none;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+<button class="btn" id="caiji">一键采集</button>
+<button class="btn" id="openWindow">打开新的页面window.open</button>
+<button class="btn" id="tabsCreate">打开新的页面tabs.create</button>
+<button class="btn" id="tabsCreateGit">打开谢大见github</button>
+<button class="btn" id="innerbutton">向页面插入一个按钮</button>
+<button class="btn" id="crateNotifications">新建通知</button>
+<button class="btn" id="clickEvent" onclick="clickEvent()">直接在dom上onclick测试</button>
+<div id="app">
+    <p>{{ message }}</p>
+    <button class="btn" v-on:click="reverseMessage">vue点击事件测试</button>
+</div>
+<button class="btn" id="addIframe" >向页面添加iframe</button>
+<!--页面不能写js，需要写成单独的js文件引入，因为安全策略-->
+<script src="popup.js"></script>
+</body>
+</html>

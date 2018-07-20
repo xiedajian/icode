@@ -1,0 +1,87 @@
+
+
+<!--
+
+圣杯布局（Holy Grail Layout）指的是一种最常见的网站布局。
+
+页面从上到下，分成三个部分：头部（header），躯干（body），尾部（footer）。其中躯干又水平分成三栏，从左到右为：导航、主栏、副栏。
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html,body{
+            height: 100%;
+        }
+        .holy{
+            display: flex;
+            flex-direction:column;
+        }
+        header{
+            flex: 0 0 auto;    /* flex: 放大 缩小 占用空间 ,默认 0 1 auto */
+            background: #333;
+            height: 100px;
+        }
+        footer{
+            flex: 0 0 auto;
+            background: #333;
+            height: 100px;
+        }
+        .holy-body{
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        .holy-body .holy-bd-content{
+            flex: 1;
+            background: #2db7f5;
+        }
+        .holy-body .holy-nav,.holy-body .holy-ads{
+            flex: 0 0 120px;
+            background: #5cb85c;
+        }
+        .holy-body .holy-nav{
+            order: -1;
+        }
+
+        /*
+            小于700px,
+            holy-body 竖向排列
+        */
+        @media screen and (max-width:700px) {
+            .holy-body{
+                flex-direction: column;
+            }
+            .holy-bd-content , .holy-nav , .holy-ads {
+                flex: 0 0 120px;
+            }
+
+        }
+    </style>
+</head>
+<body class="holy">
+
+<header>
+    xxx
+</header>
+
+<div class="holy-body">
+    <main class="holy-bd-content">xxx</main>
+    <nav class="holy-nav">xxx</nav>
+    <aside class="holy-ads">xxx</aside>
+</div>
+
+<footer>xxx</footer>
+
+</body>
+</html>

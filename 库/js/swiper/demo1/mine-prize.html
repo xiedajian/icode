@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta name='keywords' content='XXX'/>
+    <meta name='description' content='XXX'/>
+    <link rel='stylesheet' href='css/base.css'>
+    <link rel='stylesheet' href='css/style.css'>
+    <!-- Animate.css 一款强大的预设css3动画库 -->
+    <link rel='stylesheet' href='css/animate.min.css'>
+    <title>摇一摇</title>
+    <script src="js/jquery.1.11.1.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <style>
+        .back-index{
+            position: absolute;
+            top: 10%;
+            right: 0;
+            padding: 4px 8px;
+            border-radius: 5px;
+            text-align: center;
+
+        }
+        .common-position{
+            width: 90%;
+            margin: 0 auto;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .active-time{
+            line-height: 25px;
+        }
+
+        .prises-list{
+            margin-top: 50px;
+        }
+        .rules{
+            margin-top: 50px;
+            margin-bottom: 100px;
+        }
+        .tab-prize{
+            text-align: left;
+            margin: 10px 10px 30px 10px;
+
+            font-size:14px;
+        }
+        .first-tr{
+            width: 35%;
+        }
+        .secend-tr{
+            width: 50%;
+        }
+        .third-tr{
+            width: 15%;
+        }
+
+    </style>
+</head>
+<body style="background: #FE345A;">
+<!-- 红包音乐 -->
+<!--banner-shake-->
+<section class="banner-shake">
+
+    <img src="images/bg-btm-shake.jpg" style="width: 100%">
+    <!--活动规则-->
+    <div class="back-index bg-34 c-white">
+        <a href="./shake.html" class="c-white">返回摇一摇</a><br>
+    </div>
+
+    <div class="common-position active-time c-white bg-34 f18">
+        兑奖时间：2018.02.03 -- 2018.2.28
+    </div>
+
+    <div class="common-position prises-list f20 c-white bg-34">
+        <p class="padt10 marb5">中奖奖品</p>
+
+        <table class="tab-prize">
+            <tr><th class="first-tr">奖品</th><th class="secend-tr">中奖时间</th><th class="third-tr">状态</th></tr>
+            <tr><td >自定车</td><td>2017.12.21 23:25</td><td>已领取</td></tr>
+            <tr><td >自定车</td><td>2017.12.21 23:25</td><td>已失效</td></tr>
+            <tr><td >电饭煲</td><td>2017.12.21 23:25</td><td><span class="get-prize" >领取</span></td></tr>
+
+        </table>
+
+    </div>
+
+    <div class="common-position rules f20 c-white bg-34">
+        <p class="padt10 marb5">摇一摇活动规则</p>
+
+        <p class="f14 t-l padl10 line30">1. 开始时间：2018年2月3日-2月28日</p>
+        <p class="f14 t-l padl10 line30">2. 领奖时间：2018年2月3日-2月28日上午11点-12点，下午14点-17点
+            自中奖之日起，请尽快到华强广场服务台兑奖，逾期或者活动结束所有未兑换奖励，均作废处理。</p>
+        <p class="f14 t-l padl10 line30">3. 本次活动为华强广场现场线上寻宝活动，随时随地可以摇一摇，领奖必须前往华强广场服务台。</p>
+        <p class="f14 t-l padl10 line30">4. 每人每天可以摇一摇五次，每天只可兑换一种奖品，其他奖品今日自动作废。
+            奖品数量有限，先到先得，如出现奖品兑换完毕，可挑选等值奖品互换</p>
+        <p class="f14 t-l padl10 line30">5. 奖品列表：
+
+            一等奖：2018年黄河三峡马戏嘉年华门票(数量250张)
+            二等奖：商户优惠卷满100-20(数量无限)
+            参与奖：王老吉一瓶（数量480瓶）</p>
+        <p class="f14 t-l padl10 line30">6. 奖品数量有限，先到先得</p>
+
+
+
+    </div>
+
+    <!--<div class="oper">-->
+        <!--&lt;!&ndash; 去兑换 &ndash;&gt;-->
+        <!--<a href="javascript:void(0);" class="btn" id="playMusic"><img src="images/btn-recharge.png"></a>-->
+        <!--&lt;!&ndash;<a href="摇奖记录.html">摇奖记录</a>&ndash;&gt;-->
+    <!--</div>-->
+</section>
+
+
+
+<!--透明层-->
+<div class="mask"></div>
+<!--兑换成功-->
+<div class="result-pop err" style="display:none;"><!--失败-->
+    <div class="result-hd"><img src="images/letter-hd.png"></div><!--hd-->
+    <div class="txt-msg">领取成功</div>
+    <a href="javascript:void(0);" class="btn" id="prize-ok"><img src="images/btn-know.png"></a>
+</div>
+<!--输入兑换码-->
+<div class="result-pop succ" style="display:none;"><!--成功-->
+    <div class="result-hd"><img src="images/letter-hd.png"></div><!--hd-->
+    <div class="txt-msg">输入兑换码 <br>
+        <input type="password" id="psd" style="height: 30px"/></div>
+
+    <a href="javascript:void(0);" class="btn" id="pwd-submit"><img src="images/btn-know.png"></a>
+</div>
+
+<script>
+    $(function() {
+
+        // 当前是否是可以领奖的状态
+        var isCanAchieve=false;
+
+        $('.get-prize').on('click',function () {
+            $('.mask').show();
+            $('.succ').show();
+
+
+
+        });
+
+        //点击遮罩关闭浮层
+        $('.mask').on('click',function () {
+            $('.mask').hide();
+            $('.succ').hide();
+            $('.err').hide();
+        })
+
+        //兑换成功
+        $('#prize-ok').on('click',function () {
+            $('.mask').hide();
+            $('.succ').hide();
+            $('.err').hide();
+        })
+
+        //提交兑换码
+        $('#pwd-submit').on('click',function () {
+            var text=$('#psd').val();
+            console.log(text);
+            $('.succ').hide();
+            $('.err').show();
+
+        });
+
+
+    });
+</script>
+</body>
+</html>

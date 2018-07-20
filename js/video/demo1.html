@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="Description" content=""/>
+    <meta name="keywords" content=""/>
+    <title>模板</title>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <style>
+        .video-box {
+            width: 100%;
+            height: 300px;
+            background: rosybrown;
+            margin-top: 10px;
+        }
+        .video-box video{
+            width: 100%;
+            height: 300px;
+            background: rosybrown;
+        }
+    </style>
+</head>
+<body>
+<div>
+<!--     测试希望：
+    视频播放时可以全屏播放，没有进度条 -->
+</div>
+<div class="video-box video1">
+    <video  src="//player.alicdn.com/video/aliyunmedia.mp4" autoplay="true" ></video>
+</div>
+<div class="video-box video2">
+    <!-- 添加controls -->
+    <video src="//player.alicdn.com/video/aliyunmedia.mp4" controls></video>
+</div>
+<div class="video-box video3">
+    <!--  iOS 10 Safari 中，video 新增了 playsinline 属性，可以使视频内联播放 -->
+    <!-- 新问题：但是加了这个属性后，在 iOS 9 的上出现只能听到声音不能看到画面的问题，最后使用的标签代码 -->
+    <!--  iphone-inline-video 库解决这个问题 -->
+    <video src="//player.alicdn.com/video/aliyunmedia.mp4" id="video3" controls preload="auto" x-webkit-airplay="allow" x5-playsinline webkit-playsinline playsinline></video>
+</div>  
+<script>
+    /**
+     * 问题记录
+     * 1.ios原生video会被系统自动劫持全屏并用系统自带样式 （微信，safari 都一样）
+     *   解决方法： webkit-playsinline playsinline
+     * 2. 安卓 视频劫持
+     *   x5-playsinline
+     *   x5-playsinline
+
+     * */
+     $(function(){
+
+
+        // 自动播放
+        document.addEventListener("WeixinJSBridgeReady",()=>{ 
+             let video = document.getElementById('video3');
+             video.play();
+        });
+     });
+
+</script>
+</body>
+</html>

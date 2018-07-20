@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .test-div{
+            position: relative;  /*日常相对定位*/
+            top: 100px;
+            left: 100px;
+            width:150px;
+            height: 36px;
+            border:black 1px solid;
+            border-radius:5px;
+            background: rgba(245,245,245,1)
+        }
+        .test-div:before,.test-div:after{
+            content: "";  /*:before和:after必带技能，重要性为满5颗星*/
+            display: block;
+            position: absolute;  /*日常绝对定位*/
+            top:8px;
+            width: 0;
+            height: 0;
+            border:6px transparent solid;
+        }
+        .test-div:before{
+            left:-11px;
+            border-right-color: rgba(245,245,245,1);
+            z-index:1
+        }
+        .test-div:after{
+            left:-12px;
+            border-right-color: rgba(0,0,0,1);
+            z-index: 0
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="test-div"></div>
+
+</body>
+</html>

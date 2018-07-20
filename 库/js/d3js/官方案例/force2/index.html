@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Force</title>
+	<!--<script src="../libs/d3.v4.js"></script>-->
+	<script src=" https://cdn.bootcss.com/jquery/1.12.2/jquery.min.js"></script>
+	<script src="../../d3.min.js"></script>
+	<style>
+		inactive{
+			opacity: 0.2;
+		}
+		circle{
+			/*r:0;*/
+			/*stroke: #ccc;*/
+		}
+		.links{
+			/*stroke:steelblue;*/
+		}
+		.edges{
+			/*fill: #0000FF;*/
+		}
+	</style>
+</head>
+<body>
+<div style="width: 500px;height: 500px;background: gainsboro">
+	<div>
+
+
+	<!--<svg viewBox="150 100 1500 1000">-->
+	<svg  style="border: 1px solid gainsboro" id="#svg">
+	<!--<svg viewBox="150 100 900 600" style="border: 1px solid gainsboro">-->
+	<!--<svg viewBox="0 0 600 400" style="border: 1px solid gainsboro">-->
+	<!--<svg viewBox="0 0 300 200">-->
+		<defs>
+			<!--orient="auto" 箭头随线自动旋转 ||  markerUnits="userSpaceOnUse" 箭头不会被放大 || markerUnits="strokeWidth" 箭头随线放大-->
+    	<marker id="marker" markerWidth="10" markerHeight="10" refX="30" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+        	<path d="M 0 0 8 4 0 8Z" style="fill:steelblue;"/>
+    	</marker>
+		</defs>
+	</svg>
+	</div>
+</div>
+	<button class="but1">-</button>
+	<button class="but2">+</button>
+	<button class="but3">change</button>
+	<script src="./index.js"></script>
+	<script>
+		var vb=[
+		    "-150 -100 1500 1000",
+		    "0 0 1200 800",
+		    "150 100 900 600",
+		    "300 200 600 400",
+		]
+		var vbIndex=1;
+		$(".but1").on("click",function () {
+		    if(vbIndex==0){
+		        return;
+			}
+            vbIndex--;
+			d3.select("svg").attr("viewBox",vb[vbIndex]);
+        })
+
+        $(".but2").on("click",function () {
+            if(vbIndex==3){
+                return;
+            }
+            vbIndex++;
+            d3.select("svg").attr("viewBox",vb[vbIndex]);
+        })
+
+        var url="./person_gragh.json?type=妻子";
+        makeSvg(url);
+		//改变集数
+        $(".but3").on("click",function () {
+            $("#svg g").remove();
+            index++;
+            var url="./rolegragh.json";
+            makeSvg(url);
+        })
+	</script>
+</body>
+</html>

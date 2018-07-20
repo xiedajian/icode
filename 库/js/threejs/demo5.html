@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="vendor/three.min.js"></script>
+</head>
+<body>
+
+<body onload="init()">
+<canvas id="mainCanvas" width="400px" height="300px" ></canvas>
+</body>
+
+<script>
+
+    function init() {
+    /* 一个典型的Three.js程序至少要包括渲染器（Renderer）、场景（Scene）、照相机（Camera），以及你在场景中创建的物体。 */
+
+    //渲染器
+    var rederer=new THREE.WebGLRenderer({
+        canvas:document.getElementById('mainCanvas')
+    });
+    rederer.setClearColor(0x000000); //black
+
+    //场景
+    var scene=new THREE.Scene();
+
+    //透视投影的照相机 ,值得注意的是，照相机也需要被添加到场景中。
+    var camera=new THREE.PerspectiveCamera(45,4/3,1,1000);
+    camera.position.set(0,0,5);
+    scene.add(camera);
+
+    //长方体
+    //创建一个x、y、z方向长度分别为1、2、3的长方体，并将其设置为红色
+    var cube=new THREE.Mesh(new THREE.CubeGeometry(1,2,3),new THREE.MeshBasicMaterial({color:0xff0000}));
+    scene.add(cube);
+
+    rederer.render(scene,camera);
+
+
+
+
+
+
+
+
+    }
+</script>
+</body>
+</html>

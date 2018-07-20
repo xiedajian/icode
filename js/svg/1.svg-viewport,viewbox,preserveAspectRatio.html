@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>理解SVG坐标系和变换（第一部分）-viewport，viewBox，和preserveAspectRatio</h3>
+
+<!--  viewport ：初始视窗坐标系  -视窗的宽高 -->
+<svg width="800" height="600">
+    <!-- SVG content drawn onto the SVG canvas -->
+</svg>
+
+<!--viewBox ：初始用户坐标系   -属性接收四个参数值，包括：<min-x>, <min-y>, width 和 height。-->
+<!-- The viewBox in this example is equal to the viewport, but it can be different -->
+<svg width="800" height="600" viewBox="0 0 800 600">
+    <!-- SVG content drawn onto the SVG canvas -->
+</svg>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>色彩 Colors</title>
+    <style>
+        .canvas-class{
+            border: 1px solid #0071BD;
+        }
+    </style>
+</head>
+<body>
+<p>一个画布在网页中是一个矩形框，通过 canvas 元素来绘制.</p>
+<canvas id="canvas" class="canvas-class" width="500" height="500">您的浏览器不支持 HTML5 canvas 标签。</canvas>
+<script>
+    /**
+     * 默认情况下，线条和填充颜色都是黑色（CSS 颜色值 #000000）
+     * 注意: 一旦您设置了 strokeStyle 或者 fillStyle 的值，那么这个新值就会成为新绘制的图形的默认值。
+     * 如果你要给每个图形上不同的颜色，你需要重新设置 fillStyle 或 strokeStyle 的值。
+     */
+    var canvas = document.getElementById('canvas');
+    if (canvas.getContext){
+        var ctx = canvas.getContext('2d');
+
+        // 实例1：绘制颜色不同的矩形
+        for (var i=0;i<6;i++){
+            for (var j=0;j<6;j++){
+                ctx.fillStyle = 'rgb(' + Math.floor(255-42.5*i) + ',' +
+                    Math.floor(255-42.5*j) + ',0)';
+                ctx.fillRect(j*25,i*25,25,25);
+            }
+        }
+
+        // 实例2：绘制颜色不同的圆形描边
+        for (var i=0;i<6;i++){
+            for (var j=0;j<6;j++){
+                ctx.strokeStyle = 'rgb(0,' + Math.floor(255-42.5*i) + ',' +
+                    Math.floor(255-42.5*j) + ')';
+                ctx.beginPath();
+                ctx.arc(12.5+j*25,12.5+i*25,10,0,Math.PI*2,true);
+                ctx.stroke();
+            }
+        }
+
+        // 实例3：透明度  globalAlpha
+        ctx.globalAlpha=0.2;    //全局设置
+        ctx.beginPath();
+        ctx.arc(300,300,100,0,2*Math.PI);
+        ctx.fill();
+        ctx.globalAlpha=1;
+
+        // 实例4：透明度  rgba()
+        // 先画背景
+        ctx.fillStyle='rgb(255,221,0)';
+        ctx.fillRect(0,300,150,37.5);
+        ctx.fillStyle = 'rgb(102,204,0)';
+        ctx.fillRect(0,337.5,150,37.5);
+        ctx.fillStyle = 'rgb(0,153,255)';
+        ctx.fillRect(0,375,150,37.5);
+        ctx.fillStyle = 'rgb(255,51,0)';
+        ctx.fillRect(0,412.5,150,37.5);
+
+        // 画半透明矩形
+        for (var i=0;i<10;i++){
+            ctx.fillStyle = 'rgba(255,255,255,'+(i+1)/10+')';   // 局部设置透明度
+            for (var j=0;j<4;j++){
+                ctx.fillRect(5+i*14,305+j*37.5,14,27.5);
+            }
+        }
+
+    }
+
+
+
+
+</script>
+</body>
+</html>

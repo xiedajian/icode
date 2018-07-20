@@ -1,0 +1,64 @@
+
+<!--
+    移动端尺寸自适应最最最简单粗暴的方法
+    把viewport 的宽度定位设计稿的尺寸
+    然后利用viewport的缩放来适应屏幕
+
+    不用rem单位,不用设置js,但是布局视口定死后,就不能用css媒体查询做响应式了
+    所以只在移动端使用的项目可以使用这种简单粗暴的方式，提交开发效率
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- //定死为设计稿的尺寸 -->
+    <meta name="viewport" content="width=750, user-scalable=no">
+    <!-- 比例设为与屏幕宽度1:1 ， iPhone6宽度即为375px -->
+    <!--<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+        }
+        [class^=box]{
+            flex: none;
+            width: 250px;
+            height: 200px;
+            background: red;
+        }
+        .box2{
+            background: green;
+        }
+        .box3{
+            background: goldenrod;
+        }
+        .box4{
+            background: #00B7FF;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="box">
+
+</div>
+<div class="box2">
+
+</div>
+<div class="box3">
+
+</div>
+<div class="box4">
+
+</div>
+
+</body>
+</html>

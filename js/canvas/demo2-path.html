@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>path</title>
+    <style>
+        .canvas-class{
+            border: 1px solid #0071BD;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas1" class="canvas-class" width="800" height="800">您的浏览器不支持 HTML5 canvas 标签。</canvas>
+</body>
+</html>
+
+
+<script>
+    //TODO:不同于SVG，HTML中的元素canvas只支持一种原生的图形绘制：矩形。
+
+    var c=document.querySelector("#canvas1");
+    var ctx=c.getContext("2d");
+
+    /**
+     * canvas提供了三种方法绘制矩形：
+     * - fillRect(x, y, width, height) 绘制一个填充的矩形
+     * - strokeRect(x, y, width, height) 绘制一个矩形的边框
+     * - clearRect(x, y, width, height) 清除指定矩形区域，让清除部分完全透明。
+     * 参数: x与y指定了在canvas画布上所绘制的矩形的左上角（相对于原点）的坐标。width和height设置矩形的尺寸
+     */
+
+    ctx.fillRect(0,0,200,200);
+    //clearRect()函数从正方形的(50,50)开始擦除了一个60*60px的正方形
+    ctx.clearRect(50,50,60,60);
+    ctx.strokeRect(150,150,60,60);
+
+
+    /**
+     * path
+     * 路径是通过不同颜色和宽度的线段或曲线相连形成的不同形状的点的集合。一个路径，甚至一个子路径，都是闭合的
+     * 1.首先，你需要创建路径起始点。
+     * 2.然后你使用画图命令去画出路径。
+     * 3.之后你把路径封闭。
+     * 4.一旦路径生成，你就能通过描边或填充路径区域来渲染图形。
+     * 以下是所要用到的函数：
+     * beginPath()
+     *      开始，新建一条路径，生成之后，图形绘制命令被指向到路径上生成路径。
+     *      而每次这个方法调用之后，列表清空重置，然后我们就可以重新绘制新的图形。
+     *      首次通常被视为是moveTo（）指定你的起始位置
+     * closePath()
+     *      闭合，闭合路径之后图形绘制命令又重新指向到上下文中。
+     *      不是必需的。这个方法会通过绘制一条从当前点到开始点的直线来闭合图形
+     * stroke()
+     *      描边，通过线条来绘制图形轮廓。
+     * fill()
+     *      填充，通过填充路径的内容区域生成实心的图形。
+     */
+
+    // 直线
+    ctx.beginPath();
+    ctx.moveTo(400,100);
+    ctx.lineTo(450,120);
+    ctx.stroke();
+
+    // 圆弧
+    // - arc()方法 : arc(x, y, radius, startAngle, endAngle, anticlockwise)    默认为顺时针
+    ctx.beginPath();
+    ctx.arc(500,100,50,0,2*Math.PI);
+    ctx.fill();
+    ctx.stroke();
+
+    // 曲线
+    // 1.二次贝塞尔曲线 (一个控制点)  quadraticCurveTo(cp1x, cp1y, x, y)
+    ctx.beginPath();
+    ctx.moveTo(20,350);
+    ctx.quadraticCurveTo(85,390,150,350);
+    ctx.stroke();
+    // 2.三次贝塞尔曲线 (两个控制点) bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)
+    ctx.beginPath();
+    ctx.moveTo(20,400);
+    ctx.bezierCurveTo(60,480,100,320,150,400);
+    ctx.stroke();
+
+    // 三角形 -填充
+    ctx.beginPath();
+    ctx.moveTo(300,100);
+    ctx.lineTo(300,140);
+    ctx.lineTo(320,120);
+    ctx.fill();
+
+    // 三角形 -描边
+    ctx.beginPath();
+    ctx.moveTo(300,50);
+    ctx.lineTo(300,90);
+    ctx.lineTo(320,70);
+    ctx.closePath();
+    ctx.stroke();
+
+    // 画一个笑脸,第一次
+    ctx.beginPath();
+    ctx.arc(400,300,50,0,2*Math.PI);
+    ctx.arc(375,285,10,Math.PI,2*Math.PI);
+    ctx.arc(425,285,10,Math.PI,2*Math.PI);
+    ctx.stroke();
+    /* 出错，线在转移是连在一起的，画不连续的线需要moveTo()*/
+
+
+    // 画一个笑脸,第二次
+    ctx.beginPath();
+    ctx.arc(200,300,50,0,2*Math.PI);
+    ctx.moveTo(190,290);
+    ctx.arc(180,290,10,0,2*Math.PI);
+    ctx.moveTo(230,290);
+    ctx.arc(220,290,10,0,2*Math.PI);
+    ctx.moveTo(235,300);
+    ctx.arc(200,300,35,0,Math.PI);
+    ctx.stroke();
+
+
+    // 画一个心型
+//    ctx.beginPath();
+//    ctx.moveTo()
+
+
+
+
+    //
+    //    //文字
+    //    ctx3.font="30px Arial";
+    //    ctx3.strokeText("Hello World",10,50);
+</script>

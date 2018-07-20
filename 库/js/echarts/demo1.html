@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #main {
+            width: 1000px;
+            height: 800px;
+            background: gainsboro;
+        }
+    </style>
+</head>
+<body>
+
+<div id="main">
+
+</div>
+<!-- 引入 ECharts 文件 -->
+<script src="./vendor/echarts.js"></script>
+<script>
+    //    var echarts = require('echarts');
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    var option = {
+        //标题组件，包含主标题和副标题
+        title: {
+            text: '刑事案件关系挖掘——贝叶斯网络结构图'
+        },
+        //提示框组件。设置在多种地方：设置在全局，即 tooltip  | 设置在坐标系中  | 设置在系列中，即 series.tooltip  |   设置在系列的每个数据项中，即 series.data.tooltip
+        tooltip: {},
+        //初始动画的时长，支持回调函数
+        animationDurationUpdate: 1500,
+        //数据更新动画的缓动效果
+        animationEasingUpdate: 'quinticInOut',
+        //文本标签
+        label: {
+            normal: {
+                show: true,
+                textStyle: {
+                    fontSize: 12
+                },
+            }
+        },
+        //系列列表。每个系列通过 type 决定自己的图表类型
+        series: [
+            {
+                //关系图   用于展现节点以及节点之间的关系数据。
+                type: 'graph',
+                //采用力引导布局
+                layout: 'force',
+                //关系图节点标记的大小，可以设置成诸如 10 这样单一的数字，也可以用数组分开表示宽和高，例如 [20, 10] 表示标记宽为20，高为10。
+                symbolSize: 58,
+                //是否在鼠标移到节点上的时候突出显示节点以及节点的边和邻接节点。
+                focusNodeAdjacency: true,
+                //是否开启鼠标缩放和平移漫游。默认不开启
+                roam: true,
+                //图形上的文本标签，可用于说明图形的一些数据信息
+                label: {
+                    normal: {
+                        //是否显示标签。
+                        show: true,
+                        textStyle: {
+                            fontSize: 12
+                        },
+                    }
+                },
+                //力引导布局相关的配置项
+                force: {
+                    //节点之间的斥力因子。
+                    repulsion: 1000
+                },
+                //边两端的标记大小，可以是一个数组分别指定两端，也可以是单个统一指定
+                edgeSymbolSize: [4, 50],
+                edgeLabel: {
+                    normal: {
+                        show: true,
+                        textStyle: {
+                            fontSize: 10
+                        },
+                        //标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \n 换行。
+                        formatter: "{c}"
+                    }
+                },
+                //关系图的节点数据列表。
+                data: [
+                    {
+                    name: '刑事案件数量',
+                    draggable: true,
+                }, {
+                    name: 'GDP',
+                    category: 1,
+                    draggable: true,
+                }, {
+                    name: '受教育水平',
+                    category: 1,
+                    draggable: true,
+                }, {
+                    name: '人口密度',
+                    category: 1,
+                    draggable: true,
+                }, {
+                    name: '摄像头',
+                    category: 1,
+                    draggable: true,
+                }, {
+                    name: '岗亭数目',
+                    category: 1,
+                    draggable: true,
+                }, {
+                    name: '失业率',
+                    category: 1,
+                    draggable: true,
+                }, {
+                    name: '人均收入',
+                    category: 1,
+                    draggable: true,
+                }, {
+                    name: '社会保险缴纳水平',
+                    category: 1,
+                    draggable: true,
+                }],
+                links: [
+                    {
+                    source: 0,
+                    target: 1,
+                    value: 0.25
+                }, {
+                    source: 0,
+                    target: 2,
+                    value: 0.18
+                }, {
+                    source: 0,
+                    target: 3,
+                    value: 0.16
+                }, {
+                    source: 0,
+                    target: 4,
+                    value: 0.22
+                }, {
+                    source: 1,
+                    target: 2,
+                    value: 0.24
+                }, {
+                    source: 0,
+                    target: 5,
+                    value: 0.25
+                }, {
+                    source: 4,
+                    target: 5,
+                    value: 0.13
+                }, {
+                    source: 2,
+                    target: 8,
+                    value: 0.18
+                }, {
+                    source: 0,
+                    target: 12,
+                    value: 0.14
+                }, {
+                    source: 6,
+                    target: 11,
+                    value: 0.12
+                }, {
+                    source: 6,
+                    target: 3,
+                    value: 0.11
+                }, {
+                    source: 2,
+                    target: 7,
+                    value: 0.10
+                }, {
+                    source: 1,
+                    target: 3,
+                    value: 0.13
+                }],
+                //关系边的公用线条样式
+                lineStyle: {
+                    normal: {
+                        //图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+                        opacity: 0.9,
+                        //线宽
+                        width: 1,
+                        //边的曲度，支持从 0 到 1 的值，值越大曲度越大。
+                        curveness: 0
+                    }
+                }
+            }
+        ]
+    };
+    // 绘制图表
+    myChart.setOption(option);
+</script>
+</body>
+</html>

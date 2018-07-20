@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>d3折线图</title>
+    <script src="../d3.min.js"></script>
+</head>
+<body>
+<svg height="400" width="600"></svg>
+
+<script>
+    var dataset = [[1, 224], [2, 528], [3, 756], [4, 632], [5, 582], [6, 704],
+        [7, 766], [8, 804], [9, 884], [10, 960], [11, 1095], [12, 1250]];
+
+    var xMin=d3.min(dataset,function (d) {
+        return d[0];
+    })
+    var xMax=d3.max(dataset,function (d) {
+        return d[0];
+    })
+    var yMin=d3.min(dataset,function (d) {
+        return d[1];
+    })
+    var yMax=d3.max(dataset,function (d) {
+        return d[1];
+    })
+    var width=600;
+    var heitht=400;
+    //预留给轴线的距离
+    var padding={top:50,right:50,bottom:50,left:50}
+
+    //设置比例尺
+    var xScale=d3.scaleLinear().domain([xMin,xMax]).range([0,width-padding.left-padding.right]);
+    var yScale=d3.scaleLinear().domain([0,yMax]).range([heitht-padding.top-padding.bottom,0]);
+
+    //绘制轴线
+    var xAxis=d3.axisBottom().scale(xScale);
+//    var xAxis=d3.axisBottom().scale(xScale).ticks(20);
+//    var xAxis=d3.axisBottom().scale(xScale).tickValues([1, 2, 3, 5, 8]); //控制坐标刻度
+    var yAxis=d3.axisLeft().scale(yScale);
+
+    var svg=d3.select('svg');
+
+    //在svg中需要一个容器来装轴线，在容器中调用轴生成器，生成 例如path、line、text等svg标签组成的轴线
+    svg.append('g').attr('class','axis').attr('transform','translate(50 ,350 )').call(xAxis);
+    svg.append('g').attr('class','axis').attr('transform','translate(50 ,50 )').call(yAxis);
+
+    //绘制曲线
+    var linePath=d3.line().x(function (d) {
+        return xScale(d[0]);
+    }).y(function (d) {
+        return yScale(d[1]);
+    })
+
+    svg.append('g').append('path').attr('class','line-path').attr('transform','translate(50,50)').attr('d',linePath(dataset)).attr("fill",'none')
+        .attr('stroke-width',3) .attr('stroke','green');
+
+
+    svg.append('g')
+        .selectAll('circle')
+        .data(dataset)
+        .enter()
+        .append('circle')
+        .attr('r', 5)
+        .attr('transform', function(d){
+            return 'translate(' + (xScale(d[0]) + padding.left) + ',' + (yScale(d[1]) + padding.top) + ')'
+        })
+        .attr('fill', 'green')
+        .on('mouseover',function (d) {
+            console.log('y值是：'+d[1]);
+        })
+
+</script>
+</body>
+</html>

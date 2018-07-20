@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ngx-admin Demo Application</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+<script>
+    function checkWebp() {
+
+        try{
+
+            return(document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') == 0);
+        }catch(err) {
+            return false;
+        }
+    }
+
+    if(checkWebp()){
+        alert('支持webp');
+    }else {
+        alert('不支持webp');
+    }
+</script>
+</body>
+</html>

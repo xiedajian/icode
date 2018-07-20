@@ -1,0 +1,54 @@
+{
+   "background": {
+      "page": "background.html"
+   },
+   "browser_action": {
+      "default_icon": {
+         "19": "images/logo_19.png",
+         "38": "images/logo_38.png"
+      },
+      "default_popup": "popup.html",
+      "default_title": "花瓣网页收藏工具"
+   },
+   "content_scripts": [
+      {
+      "exclude_globs": [ "http://huaban.com*", "http://www.huaban.com*", "http://event.huaban.com*", "http://localhost*", "http://local*", "http://127.0.0.1*" ],
+      "include_globs": [ "*" ],
+      "js": [ "js/script.js" ],
+      "matches": [ "http://*/*", "https://*/*" ],
+      "run_at": "document_end"
+   }, {
+      "css": [ "css/capture.css" ],
+      "js": [ "js/page.js", "js/shortcut.js" ],
+      "matches": [ "http://*/*", "https://*/*" ],
+      "run_at": "document_end"
+   }, {
+      "js": [ "js/isload.js" ],
+      "matches": [ "http://*/*", "https://*/*" ],
+      "run_at": "document_start"
+   }, {
+      "js": [ "js/isinstalled.js" ],
+      "matches": [ "http://huaban.com/*", "https://huaban.com/*" ],
+      "run_at": "document_start"
+   }, {
+      "js": [ "js/transmit.js" ],
+      "matches": [ "http://huaban.com/*", "https://huaban.com/*" ],
+      "run_at": "document_end"
+   }
+   ],
+   "content_security_policy": "script-src 'self' https://huaban.com https://ssl.google-analytics.com; object-src 'self'",
+   "description": "这个扩展程序可以让你方便地从任意网站上采集喜欢的图片、视频或者网页截图到花瓣网(huaban.com)上。这是花瓣网官方(huaban.com)提供的扩展。",
+   "icons": {
+      "128": "images/logo_128.png",
+      "16": "images/logo_16.png",
+      "48": "images/logo_48.png"
+   },
+   "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCs+kF7e3A5/W138GfVnebAdpMVbm+2h26bAVMoYXXpbanuvin1GwevNUVievX28jaO2rvHag6MBRrmx25OAlC6zq02PhJoVdvBMfUEHBdZys1jF6MdM82WPVT2ilt4Kp2H/3f7RNcqywFEtcEPSA3teMYeKGQb9o4f8EtubiduNQIDAQAB",
+   "manifest_version": 2,
+   "minimum_chrome_version": "26",
+   "name": "花瓣网页收藏工具",
+   "options_page": "preferences.html",
+   "permissions": [ "contextMenus", "notifications", "storage", "tabs", "http://*/*", "https://*/*", "activeTab", "\u003Call_urls>" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.4.8"
+}

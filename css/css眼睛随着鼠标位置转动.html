@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body{
+            height: 100%;
+        }
+        body{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .box{
+            flex: none;
+            width: 100px;
+            height: 50px;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+            background: cadetblue;
+        }
+        .box>div{
+            flex: 0 0 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: green;
+            position: relative;
+        }
+
+        .box>div:after{
+            content: '';
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #111;
+            position: absolute;
+            left: 15px;
+            top: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <div class="eye_left">
+        <div class="eye"></div>
+    </div>
+    <div class="eye_right">
+        <div class="eye"></div>
+    </div>
+</div>
+
+<script>
+
+    /**
+     * 眼睛随鼠标的位置变化而转动
+     * 1. 主要利用transform 旋转眼睛来实现眼睛转动
+     * 2. 监听鼠标的位置来设置旋转的角度
+     */
+
+
+    $('body').on('mousemove',function (event) {
+//        console.log(e);
+        var eye = $(".box>div");
+        var x = (eye.offset().left) + (eye.width() / 2);
+        var y = (eye.offset().top) + (eye.height() / 2);
+        var rad = Math.atan2(event.pageX - x, event.pageY - y);
+        var rot = (rad * (180 / Math.PI) * -1) + 180;
+        eye.css({
+            '-webkit-transform': 'rotate(' + rot + 'deg)',
+            '-moz-transform': 'rotate(' + rot + 'deg)',
+            '-ms-transform': 'rotate(' + rot + 'deg)',
+            'transform': 'rotate(' + rot + 'deg)'
+        });
+    })
+</script>
+</body>
+</html>

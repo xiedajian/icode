@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            height: 2000px;
+        }
+        .box{
+            width: 100%;
+            height: 100px;
+            margin-bottom: 100px;
+            background-color: burlywood;
+            text-align: center;
+        }
+        #box2{
+            position: -webkit-sticky;
+            position: sticky;
+            top:0;
+        }
+    </style>
+</head>
+<body>
+<div class="box">box1</div>
+<div class="box"  id="box2">box2</div>
+<div class="box">box3</div>
+<div class="box">box4</div>
+
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script>
+    /***
+     * 传动js实现方式
+     */
+
+//    $(function () {
+//        var box = $('#box2');
+//        var boxOffTop = box.offset().top ;
+//
+//        $(document).on('scroll',function () {
+//            // 要定位元素距离浏览器顶部的距离 与 滚动条的滑动距离 相比
+//            if (boxOffTop<= $(this).scrollTop()){
+//                box.css({'position':'fixed','top':'0px'})
+//            }else {
+//                box.css({'position':'static'})
+//            }
+//
+//        })
+//    })
+
+</script>
+</body>
+</html>

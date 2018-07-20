@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>jQuery UI 拖动（Draggable） + 排序（Sortable）</title>
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="jqueryui/style.css">
+    <style>
+        ul { list-style-type: none; margin: 0; padding: 0; margin-bottom: 10px; }
+        li { margin: 5px; padding: 5px; width: 150px; }
+        .source input{
+            display: none;
+        }
+        .target input{
+            border: 1px solid seagreen;
+        }
+    </style>
+    <script>
+        $(function() {
+            $( "#sortable" ).sortable({
+                revert: true
+            });
+            // 拖拽
+            $( "#draggable" ).draggable({
+                connectToSortable: "#sortable",
+//                helper: "original",    // 助手方式：'clone'（用光标移动 draggable 的副本）， 'original'（用光标移动 draggable 对象），或者一个返回 DOM 元素的函数（该元素在拖拽期间显示在光标附近）
+                helper:function () {
+                  return `<li>我是新的li</li>`;
+                },
+                // opacity:0.5,        // 透明度
+                revert: "invalid",   //还原到原始位置，
+                distance:20,    // 拖动20px之后才开始动
+                delay:0,        // 延迟0毫秒后开始动
+                start:function () {
+                    console.log('drag start');
+                },
+                drag: function() {
+                    console.log('drag move');
+                },
+                stop: function() {
+                    console.log('drag end');
+                }
+            });
+            $( "ul, li" ).disableSelection();
+        });
+    </script>
+</head>
+<body>
+
+<ul class="source">
+    <li id="draggable" class="ui-state-highlight">
+        div.
+        <input type="password" placeholder="输入密码">
+    </li>
+    <li id="draggable2" class="ui-state-highlight">
+        <input type="email" placeholder="邮箱">
+    </li>
+</ul>
+
+<form action="">
+
+
+</form>
+<ul id="sortable" class="target">
+    <li class="ui-state-default">
+        <input type="tetx" placeholder="输入账号">
+    </li>
+    <li class="ui-state-default">Item 2</li>
+    <li class="ui-state-default">Item 3</li>
+    <li class="ui-state-default">Item 4</li>
+    <li class="ui-state-default">Item 5</li>
+</ul>
+
+
+</body>
+</html>

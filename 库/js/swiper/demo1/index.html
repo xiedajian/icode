@@ -1,0 +1,299 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>摇一摇</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/>
+
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <script src="js/swiper.min.js"></script>
+    <script src="js/swiper.animate.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: "microsoft yahei";
+        }
+
+        .swiper-container {
+            /*  width: 320px;
+              height: 480px;*/
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+
+        .swiper-slide {
+        }
+
+        .swiper-slide {
+            width: 100%;
+            height: 100%;
+            background: url(upload/bg.jpg) no-repeat left top;
+            background-size: 100% 100%;
+        }
+        .page1 {
+            width: 100%;
+            height: 100%;
+            background: url(upload/page1.png) no-repeat left top;
+            background-size: 100% 100%;
+        }
+
+        img {
+            display: block;
+        }
+
+        .swiper-pagination-bullet {
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            opacity: .4;
+        }
+
+        .swiper-pagination-bullet-active {
+            opacity: 1;
+        }
+
+        @-webkit-keyframes tipmove {
+            0% {
+                bottom: 10px;
+                opacity: 0
+            }
+            50% {
+                bottom: 15px;
+                opacity: 1
+            }
+            100% {
+                bottom: 20px;
+                opacity: 0
+            }
+        }
+
+        .ani {
+            position: absolute;
+        }
+
+        .txt {
+            position: absolute;
+        }
+
+        #array {
+            position: absolute;
+            z-index: 999;
+            -webkit-animation: tipmove 1.5s infinite ease-in-out;
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<audio id="musicBox" style="display:none" src="./music/song.mp3"  autoplay loop>您的浏览器不支持 audio 标签</audio>
+
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <!-------------slide1----------------->
+        <section class="swiper-slide page1">
+
+<!--
+            <img src="upload/s1-t2.png" class="ani resize"
+                 style="width:100px;height:110px;left:70px;top:185px;z-index:3;" swiper-animate-effect="fadeIn"
+                 swiper-animate-duration="0.5s" swiper-animate-delay="1.5s">
+            <img src="upload/s1-t1.png" class="ani resize"
+                 style="width:60px;height:110px;left:220px;top:185px;z-index:3;" swiper-animate-effect="bounceIn"
+                 swiper-animate-duration="0.5s" swiper-animate-delay="1s">
+            <img src="upload/flower.png" class="ani resize" style="width:180px;height:220px;left:0;top:0;z-index:2;"
+                 swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0s">
+            <img src="upload/s1.png" class="ani resize" style="width:320px;height:200px;left:0px;top:140px;z-index:1;"
+                 swiper-animate-effect="fadeIn" swiper-animate-duration="0.5s" swiper-animate-delay="0.5s">
+-->
+
+        </section>
+        <!---------------slide2-------------->
+        <section class="swiper-slide">
+            <img src="upload/s2-i5.png" class="ani resize"
+                 style="width:263px;height:177px;left:31px;top:262px;z-index:5; border-radius:20px;"
+                 swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2s">
+            <img src="upload/xinchun.png" class="ani resize"
+                 style="width:195px;height:163px;left:31px;top:48px;z-index:4;" swiper-animate-effect="fadeInRight"
+                 swiper-animate-duration="0.5s" swiper-animate-delay="1.3s">
+            <img src="upload/s2-i3.png" class="ani resize"
+                 style="width:180px;height:180px;left:24px;top:50px;z-index:3;" swiper-animate-effect="fadeInLeft"
+                 swiper-animate-duration="0.5s" swiper-animate-delay="1s">
+            <img src="upload/chunjie.png" class="ani resize"
+                 style="width:80px;right:10px;top:80px;z-index:2;" swiper-animate-effect="fadeInUp"
+                 swiper-animate-duration="0.5s" swiper-animate-delay="0.3s">
+            <img src="upload/s2-i1.png" class="ani resize"
+                 style="width:80px;height:180px;right:20px;top:50px;z-index:1;" swiper-animate-effect="fadeInDown"
+                 swiper-animate-duration="0.5s" swiper-animate-delay="0s">
+
+        </section>
+        <!----------------slide3-------------->
+<!--        <section class="swiper-slide">
+
+            <img src="upload/s3-i5.png" class="ani resize"
+                 style="width:263px;height:177px;left:31px;top:262px;z-index:5; border-radius:20px;"
+                 swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2s">
+            <img src="upload/s3-i4.png" class="ani resize"
+                 style="width:195px;height:163px;left:31px;top:48px;z-index:4;" swiper-animate-effect="fadeInRight"
+                 swiper-animate-duration="0.5s" swiper-animate-delay="1.3s">
+            <img src="upload/s2-i3.png" class="ani resize"
+                 style="width:212px;height:186px;left:24px;top:36px;z-index:3;" swiper-animate-effect="fadeInLeft"
+                 swiper-animate-duration="0.5s" swiper-animate-delay="1s">
+            <img src="upload/s3-i2.png" class="ani resize"
+                 style="width:64px;height:221px;left:237px;top:20px;z-index:2;" swiper-animate-effect="fadeInUp"
+                 swiper-animate-duration="0.5s" swiper-animate-delay="0.3s">
+            <img src="upload/s2-i1.png" class="ani resize"
+                 style="width:42px;height:192px;left:248px;top:27px;z-index:1;" swiper-animate-effect="fadeInDown"
+                 swiper-animate-duration="0.5s" swiper-animate-delay="0s">
+
+        </section>-->
+        <!-------------slide4----------------->
+<!--        <section class="swiper-slide">
+
+            <div class="ani resize" style="width:120px;height:110px;left:110px;top:184px;z-index:3;"
+                 swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="1s">
+                <div class="txt">
+                    <p style="width:15px;color:#b60927; display:inline-block; font-size:90%; line-height:1; margin-right:10px;">
+                        愿您羊年运旺福旺</p>
+                    <p style="width:15px;color:#b60927; display:inline-block; font-size:90%; line-height:1; margin-right:10px;">
+                        条条祝福给您送上</p>
+                    <p style="width:15px;color:#b60927; display:inline-block; font-size:90%; line-height:1; margin-right:10px;">
+                        美丽花灯传递吉祥</p>
+                    <p style="width:15px;color:#b60927; display:inline-block; font-size:90%; line-height:1; margin-right:10px;">
+                        圆圆汤圆味道芬芳</p></div>
+
+            </div>
+            <div class="ani resize"
+                 style="width:60px;height:110px;left:260px;top:185px;z-index:3;color:#b60927; font-size:160%; font-weight:bold;"
+                 swiper-animate-effect="fadeInRight" swiper-animate-duration="1s" swiper-animate-delay="1s">
+                <div class="txt">
+                    元<br>宵<br>节
+                </div>
+            </div>
+            <img src="upload/flower.png" class="ani resize" style="width:180px;height:220px;left:0;top:0;z-index:2;"
+                 swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0s">
+            <img src="upload/s1.png" class="ani resize" style="width:320px;height:200px;left:0px;top:140px;z-index:1;"
+                 swiper-animate-effect="fadeIn" swiper-animate-duration="0.5s" swiper-animate-delay="0.5s">
+
+        </section>-->
+
+        <!-------------slide5----------------->
+        <section class="swiper-slide">
+
+            <div class="ani resize" style="width:120px;height:110px;left:110px;top:184px;z-index:3;"
+                 swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="1s">
+                <img src="upload/huaqiang.png" class="ani resize"
+                     style="width:200px;top:5px;z-index:1;" swiper-animate-effect="fadeInDown"
+                     swiper-animate-duration="0.5s" swiper-animate-delay="0s">
+                <!--<div class="txt">-->
+                        <!--<a href="./shake.html" style="text-decoration: none;border: 1px solid grey;border-radius: 5px">进入摇一摇抽奖</a>-->
+                <!--</div>-->
+
+            </div>
+            <a class="ani resize" href="./shake.html"
+                 style="display:block;text-decoration:none;padding: 15px 32px;background:red;left:108px;top:250px;z-index:3;color:#ffffff; font-size:130%; font-weight:bold;border-radius: 5px"
+                 swiper-animate-effect="fadeInRight" swiper-animate-duration="1s" swiper-animate-delay="1s">
+                开启摇一摇抽奖
+            </a>
+            <img src="upload/flower.png" class="ani resize" style="width:180px;height:220px;left:0;top:0;z-index:2;"
+                 swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0s">
+            <img src="upload/s1.png" class="ani resize" style="width:320px;height:200px;left:0px;top:140px;z-index:1;"
+                 swiper-animate-effect="fadeIn" swiper-animate-duration="0.5s" swiper-animate-delay="0.5s">
+
+        </section>
+
+
+    </div>
+
+    <img src="images/web-swipe-tip.png" style="width:20px;height:15px; top:460px; left:150px;" id="array"
+         class="resize">
+    <div class="swiper-pagination"></div>
+</div>
+
+
+<script>
+
+    // ios 微信中不会自动播放音乐，需要使用js-sdk
+    function autoPlayAudio() {
+        // 配置信息, 即使不正确也能使用 wx.ready
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '', // 必填，公众号的唯一标识
+            timestamp: '', // 必填，生成签名的时间戳
+            nonceStr: '', // 必填，生成签名的随机串
+            signature: '',// 必填，签名，见附录1
+            jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function(){
+            // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+            document.getElementById('musicBox').play();
+        });
+
+        wx.error(function(res){
+            // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+            console.log('wx-js error',res);
+        });
+    }
+    autoPlayAudio();
+
+    //当前宽度与320设计稿的比例尺
+    scaleW = window.innerWidth / 320;
+    scaleH = window.innerHeight / 480;
+    var resizes = document.querySelectorAll('.resize');
+    for (var j = 0; j < resizes.length; j++) {
+        resizes[j].style.width = parseInt(resizes[j].style.width) * scaleW + 'px';
+        resizes[j].style.height = parseInt(resizes[j].style.height) * scaleH + 'px';
+        resizes[j].style.top = parseInt(resizes[j].style.top) * scaleH + 'px';
+        resizes[j].style.left = parseInt(resizes[j].style.left) * scaleW + 'px';
+
+    }
+    var scales = document.querySelectorAll('.txt');
+    for (var i = 0; i < scales.length; i++) {
+        ss = scales[i].style;
+        ss.webkitTransform = ss.MsTransform = ss.msTransform = ss.MozTransform = ss.OTransform = ss.transform = 'translateX(' + scales[i].offsetWidth * (scaleW - 1) / 2 + 'px) translateY(' + scales[i].offsetHeight * (scaleH - 1) / 2 + 'px)scaleX(' + scaleW + ') scaleY(' + scaleH + ') ';
+    }
+
+
+    ////Swiper4.x
+    var mySwiper = new Swiper('.swiper-container', {
+        direction: 'vertical',
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        mousewheel: true,
+        //初始化时隐藏元素并在需要的时刻开始动画。
+        on: {
+            init: function () {
+                swiperAnimateCache(this);//隐藏动画元素
+                swiperAnimate(this);////初始化完成开始动画
+            },
+            slideChangeTransitionEnd: function () {
+                swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+            }
+        }
+    })
+</script>
+</body>
+</html>

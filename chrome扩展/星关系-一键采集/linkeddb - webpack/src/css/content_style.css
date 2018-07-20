@@ -1,0 +1,12 @@
+.linkeddb-iframe{
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    top: 300px;
+    right: 50px;
+    width: 400px;
+    height: 400px;
+    border: 1px solid gainsboro;
+    border-radius: 10px;
+    z-index:1111111111111111;
+}

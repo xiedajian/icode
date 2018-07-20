@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>渐变</title>
+    <style>
+        .canvas-class{
+            border: 1px solid #0071BD;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas1" class="canvas-class" width="500" height="500">您的浏览器不支持 HTML5 canvas 标签。</canvas>
+<script>
+    /**
+     * 渐变可以填充在矩形, 圆形, 线条, 文本等等, 各种形状可以自己定义不同的颜色。
+     * 有两种不同的方式来设置Canvas渐变：
+     *   createLinearGradient(x,y,x1,y1) - 创建线条渐变
+     *   createRadialGradient(x,y,r,x1,y1,r1) - 创建一个径向/圆渐变
+     *   gradient.addColorStop(position, color) - addColorStop 方法接受 2 个参数，position 参数必须是一个 0.0 与 1.0 之间的数值，表示渐变中颜色所在的相对位置
+     * */
+    var c=document.querySelector("#canvas1");
+    var ctx=c.getContext("2d");
+
+    //创建线性渐变
+    var grd=ctx.createLinearGradient(0,0,200,0);
+    grd.addColorStop(0,"red");       //开始是红色
+    grd.addColorStop(0.5,"blue");   //中间是黑色
+    grd.addColorStop(0.5,"yellow");   //中间是黑色
+    grd.addColorStop(1,"white");    //结束是白色
+
+    ctx.fillStyle=grd;
+    ctx.fillRect(10,10,100,100);
+</script>
+</body>
+</html>

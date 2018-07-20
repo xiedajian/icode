@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style-type: none;
+            display: flex;
+            position: absolute;
+            width: 800px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        li {
+            position: relative;
+            padding: 20px;
+            /*font-size: 24px;*/
+            color: #000;
+            line-height: 1;
+            transition: 0.2s all linear;
+            cursor: pointer;
+        }
+
+        /* 普通的效果不带动画， */
+        /*li:hover{*/
+            /*border-bottom: 1px solid #333;*/
+        /*}*/
+
+
+        /* 考虑到hover时下划线要从一侧远动展开，所以可以用 ::before 来加上动画 */
+
+
+        li::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 0;
+            height: 100%;
+            border-bottom: 2px solid #000;
+            transition: 0.2s all linear;
+        }
+
+        li:hover::before {
+            width: 100%;
+            top: 0;
+            left: 0;
+            transition-delay: 0.1s;
+            border-bottom-color: #000;
+            z-index: -1;
+        }
+
+        /*  以上代码下划线只会从右侧滑出，左移左出，右移右出。借助 ~ 选择符，完成这个艰难的使命 */
+        li:hover ~ li::before {
+            left: 0;
+        }
+
+        li:active {
+            background: #000;
+            color: #fff;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+<ul>
+    <li>不可思议的CSS</li>
+    <li>导航栏</li>
+    <li>光标小下划线跟随</li>
+    <li>PURE CSS</li>
+    <li>Nav Underline</li>
+</ul>
+</body>
+</html>

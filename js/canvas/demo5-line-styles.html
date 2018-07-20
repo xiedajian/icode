@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>线型 Line styles</title>
+    <style>
+        .canvas-class{
+            border: 1px solid #0071BD;
+        }
+    </style>
+</head>
+<body>
+<p>一个画布在网页中是一个矩形框，通过 canvas 元素来绘制.</p>
+<canvas id="canvas" class="canvas-class" width="500" height="500">您的浏览器不支持 HTML5 canvas 标签。</canvas>
+<script>
+    /**
+     *  线型 Line styles
+     *  lineWidth = value
+     *      设置线条宽度。
+     *  lineCap = type
+     *      设置线条末端样式。   butt，round 和 square。默认是 butt。
+     *  lineJoin = type
+     *      设定线条与线条间接合处的样式。 round, bevel 和 miter。默认是 miter
+     *  miterLimit = value
+     *      限制当两条线相交时交接处最大长度；所谓交接处长度（斜接长度）是指线条交接处内角顶点到外角顶点的长度。
+     *  getLineDash()
+     *      返回一个包含当前虚线样式，长度为非负偶数的数组。
+     *  setLineDash(segments)
+     *      设置当前虚线样式。
+     *  lineDashOffset = value
+     *      设置虚线样式的起始偏移量。
+     */
+
+    var canvas = document.getElementById('canvas');
+    if (canvas.getContext){
+        var ctx = canvas.getContext('2d');
+
+        // lineWidth 属性的例子
+        for (var i = 0; i < 10; i++){
+            ctx.lineWidth = 1+i;
+            ctx.beginPath();
+            ctx.moveTo(5+i*14,5);
+            ctx.lineTo(5+i*14,140);
+            ctx.stroke();
+        }
+
+        // lineCap 属性的例子
+        var lineCap = ['butt','round','square'];
+        // 创建路径
+        ctx.strokeStyle = '#09f';
+        ctx.beginPath();
+        ctx.moveTo(10,210);
+        ctx.lineTo(140,210);
+        ctx.moveTo(10,340);
+        ctx.lineTo(140,340);
+        ctx.stroke();
+        // 画线条
+        ctx.strokeStyle = 'black';
+        for (var i=0;i<lineCap.length;i++){
+            ctx.lineWidth = 15;
+            ctx.lineCap = lineCap[i];
+            ctx.beginPath();
+            ctx.moveTo(25+i*50,210);
+            ctx.lineTo(25+i*50,340);
+            ctx.stroke();
+        }
+
+        // lineJoin 属性的例子
+        var lineJoin = ['round','bevel','miter'];
+        ctx.lineWidth = 10;
+        for (var i=0;i<lineJoin.length;i++){
+            ctx.lineJoin = lineJoin[i];
+            ctx.beginPath();
+            ctx.moveTo(195,5+i*40);
+            ctx.lineTo(235,45+i*40);
+            ctx.lineTo(275,5+i*40);
+            ctx.lineTo(315,45+i*40);
+            ctx.lineTo(355,5+i*40);
+            ctx.stroke();
+        }
+
+        // 使用虚线创建一个行军蚁的效果
+        // TODO:用 setLineDash 方法和 lineDashOffset 属性来制定虚线样式. setLineDash 方法接受一个数组，来指定线段与间隙的交替；lineDashOffset 属性设置起始偏移量.
+        ctx.lineWidth = 1;
+        var offset=0;
+        function draw() {
+            ctx.clearRect(300,300, 100, 100);
+            ctx.setLineDash([4, 2]);
+            ctx.lineDashOffset = -offset;
+            ctx.strokeRect(300,300, 100, 100);
+        }
+
+        function march() {
+            offset++;
+            if (offset > 16) {
+                offset = 0;
+            }
+            draw();
+            setTimeout(march, 20);
+        }
+
+        march();
+    }
+
+
+
+
+</script>
+</body>
+</html>

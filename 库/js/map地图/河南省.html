@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>河南省</title>
+</head>
+<body><div id="map" style="width:800px;height: 500px;"></div>
+<script src="https://img.hcharts.cn/highmaps/highmaps.js"></script>
+<script src="https://data.jianshukeji.com/geochina/henan.js"></script>
+<script>
+// 随机数据
+var data = [{"name":"郑州","value":24},{"name":"开封","value":27},{"name":"洛阳","value":11},{"name":"平顶山","value":81},{"name":"安阳","value":88},{"name":"鹤壁","value":50},{"name":"新乡","value":100},{"name":"焦作","value":39},{"name":"濮阳","value":14},{"name":"许昌","value":18},{"name":"漯河","value":48},{"name":"三门峡","value":96},{"name":"南阳","value":43},{"name":"商丘","value":32},{"name":"信阳","value":58},{"name":"周口","value":85},{"name":"驻马店","value":22},{"name":"济源","value":12}];
+// 初始化图表
+var map = new Highcharts.Map('map', {
+  title: {
+    text: '河南省'
+  },
+  colorAxis: {
+    min: 0,
+    minColor: 'rgb(255,255,255)',
+    maxColor: '#006cee'
+  },
+  series: [{
+    data: data,
+    name: '随机数据',
+    mapData: Highcharts.maps['cn/henan'],
+    joinBy: 'name' // 根据 name 属性进行关联
+  }]
+});
+</script></body></html>

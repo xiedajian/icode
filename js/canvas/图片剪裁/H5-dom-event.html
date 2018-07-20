@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>javascript中有两种事件模型：DOM0，DOM2</h1>
+<p><button class="btn1">按钮1</button>第一代dom0事件，onclick,</p>
+<p><button class="btn2">按钮2</button>第二代dom2级事件,addEventListener</p>
+
+<h1>事件代理</h1>
+<hr>
+<ul>
+    <li class="li1"></li>
+    <li class="li2"></li>
+    <li class="li3"></li>
+</ul>
+<script type="text/javascript">
+    let btn1=document.querySelector('.btn1');
+    let btn2=document.querySelector('.btn2');
+    let btn3=document.querySelector('.btn3');
+    /* dom0级事件 */
+    btn1.onclick=function () {
+        var event = event || window.event;
+        console.log('dom0 event1',event);
+    };
+    btn1.onclick=function () {
+        var event = event || window.event;
+        console.log('dom0 event2',event);
+    }
+    /* dom2级事件 */
+    let hander1=function () {
+        var event = event || window.event;
+        console.log('dom2 event1',event);
+    }
+    let hander2=function () {
+        var event = event || window.event;
+        console.log('dom2 event2',event);
+    }
+    btn2.addEventListener('click',hander1,false);
+
+    btn2.addEventListener('click',hander2,false);
+
+    btn2.removeEventListener('click',hander1,false);
+    /* dom2级事件 IE */
+//    btn2.attachEvent('onclick',hander2);
+//    btn2.detachEvent('onclick',hander2);
+
+    //阻止事件默认行为
+    function preventDefault(event) {
+        if(event.preventDefault) {
+            event.preventDefault();
+        } else {
+            event.returnValue = false;
+        }
+    };
+    //阻止事件冒泡
+    function stopPropagation(event) {
+        if(event.stopPropagation) {
+            event.stopPropagation();
+        } else {
+            event.cancelBubble = true;
+        }
+    };
+
+    /* 原生事件代理 */
+    var list=document.querySelector('ul');
+    list.addEventListener('click',function (event) {
+        var target=event.target;
+        while (target.targetName !== 'LI'){
+            target=target.parentNode;
+            if (target===list)return;
+        }
+        //do you thing
+        console.log('点击了li');
+
+    })
+
+
+//    响应式布局中，对window对象监听resize事件是非常常用的一个技巧
+    window.addEventListener('resize', function() {
+        // update the layout
+    });
+
+</script>
+</body>
+</html>

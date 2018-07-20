@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		ul{
+			list-style-type: none;
+		}
+		ul li{
+			display: block;
+			cursor: move;
+		}
+	</style>
+</head>
+<body>
+
+
+<ul id="items">
+	<li>item 1</li>
+	<li>item 2</li>
+	<li>item 3</li>
+</ul>
+
+
+	<script type="text/javascript" src="./sortablejs/Sortable.js"></script>
+	<script type="text/javascript">
+		var el = document.getElementById('items');
+var sortable = Sortable.create(el);
+	</script>
+
+</body>
+</html>
