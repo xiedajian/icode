@@ -10,35 +10,36 @@
  9. fs.unlink删除文件
 */
 
+var fs=require('fs')
+
 
 //1.判断服务器上面有没有upload目录。没有创建这个目录。   （图片上传）
 
-var fs=require('fs')
-
-fs.stat('upload',function (err,stats) {
-	
-	if(err){
-		// 没有
-		
-		fs.mkdir('upload',function (err) {
-			if (err){
-			
-			}
-			
-			console.log('新建目录成功')
-		})
-	}
-	
-	if(stats.isFile()){
-		fs.mkdir('upload',function (err) {
-			if (err){
-			
-			}
-			
-			console.log('新建目录成功')
-		})
-	}
-})
+//
+// fs.stat('upload',function (err,stats) {
+//
+// 	if(err){
+// 		// 没有
+//
+// 		fs.mkdir('upload',function (err) {
+// 			if (err){
+//
+// 			}
+//
+// 			console.log('新建目录成功')
+// 		})
+// 	}
+//
+// 	if(stats.isFile()){
+// 		fs.mkdir('upload',function (err) {
+// 			if (err){
+//
+// 			}
+//
+// 			console.log('新建目录成功')
+// 		})
+// 	}
+// })
 
 
 
@@ -46,16 +47,19 @@ fs.stat('upload',function (err,stats) {
 //2. 找出html目录下面的所有的目录，然后打印出来
 
 var filesArr=[];
-fs.readdir('commonjs',function(err,files){
+fs.readdir('fs',function(err,files){
 	if(err){
 		console.log(error);
 		
-	}else{  /*判断是目录还是文件夹*/
+	}else{
+		
+		/*判断是目录还是文件夹*/
 		//console.log(files);  /*数组*/
 		
 		(function getFile(i){
 			
 			if(i==files.length){  /*循环结束*/
+				
 				console.log('目录：');
 				console.log(filesArr);   /*打印出所有的目录*/
 				return false;

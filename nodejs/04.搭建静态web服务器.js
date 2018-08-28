@@ -17,49 +17,50 @@
 
 
 var http =require('http')
-var url =require('url')
+var url =require('url')         // 解析url
 var fs =require('fs')
+var path = require('path')      // 路径
+var getMime  = require('./fs/model/getmimeformfile').getmime
 
 
 
 http.createServer(function (req, res) {
 	
-	var pathname = req.url;
 	
-	console.log(pathname);
+	
+	
+	var pathname = url.parse(req.url).pathname;
+	var extname = path.extname(pathname);
+	
+	console.log('路径：：：'+pathname);
 	
 	if(pathname == '/'){
-		pathname = '/index.html';
+		pathname = '/index.html'; /*默认加载的首页*/
 	}
 	
 	if(pathname !='/favicon.ico'){
-		
-		fs.readFile('./fs/static/'+pathname,function (err,data) {
+			console.log('./fs/static/'+pathname)
+		fs.readFile('./fs/static'+pathname,function (err,data) {
+			var mime = getMime(fs,extname);
+			res.writeHeader(200,{"Content-Type":mime+";charset:'utf-8'"})
+			
+			if(err){
+				
+				res.write(fs.readFileSync('./fs/static/404.html'))
+			}
+			
+			else {
+				
+				res.write(data)
+			}
+
+			// 结束响应
+			res.end()
 			
 		})
 	}
 	
-	// 解析url
-	var urlR = url.parse(req.url,true)
 	
-	console.log(req.url);
-	console.log(urlR);
-	
-	res.writeHeader(200,{"Content-Type":"text/html;charset:'utf-8'"})
-	
-	
-	// url中获取参数
-	if(urlR.query.userId){
-		
-		// 读取文件，写入response
-		res.write(fs.readFileSync('./fs/index.html'))
-		
-	}else {
-		
-		res.write(fs.readFileSync('./fs/login.html'))
-	}
-	
-	// 结束响应
-	res.end()
-	
+
+
 }).listen(3001)

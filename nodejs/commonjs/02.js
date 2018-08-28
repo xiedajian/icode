@@ -56,6 +56,6 @@
 
 // 6. 我们想达到像引入 http 一样写个模块名就可以，在node_modules 下创建 tools4 文件下 ，复制一份 tools.js ， 写上 package.json 描述文件
 
-var tools4 = require('tools4')
+var tools4 = require('tools4')          // package 中 "main": "tools.js" 入口文件
 
 tools4.sayHello();          // 正常运行，这就是文件模块（自定义模块）的运行原理，常使用的各种第三方包都是这样的工作模式

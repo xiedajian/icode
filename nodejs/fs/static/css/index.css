@@ -1,4 +1,9 @@
 
 html{
-    color: #0baae4;
+    background: #0baae4;
+}
+
+h1{
+    font-size: 60px;
+    color:blue;
 }
