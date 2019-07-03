@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuex简单案例</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex@3.0.1/dist/vuex.js"></script>
+</head>
+<body >
+<div id="app">
+    <p>{{ num }}</p>
+    <p>{{ count }}</p>
+    <p>
+        <button @click="increment">+</button>
+        <button @click="decrement">-</button>
+    </p>
+</div>
+
+
+
+<script>
+    /**
+     * 最简单的状态管理vuex
+     * 1. 不能直接改变仓store库的值，需要通过提交挂载命令的方式来改变 commit mutations
+     * */
+
+    const store = new Vuex.Store({
+        state: {
+            count: 0
+        },
+        mutations: {
+            increment: state => state.count++,
+            decrement: state => state.count--
+        }
+    })
+
+    new Vue({
+        el: '#app',
+        data:{
+            num:store.state.count       // 不会变
+        },
+        computed: {
+            count () {
+                return store.state.count+1      // 会变 ，思考一下
+            }
+        },
+        methods: {
+            increment () {
+                store.commit('increment')
+            },
+            decrement () {
+                store.commit('decrement')
+            }
+        }
+    })
+</script>
+</body>
+</html>

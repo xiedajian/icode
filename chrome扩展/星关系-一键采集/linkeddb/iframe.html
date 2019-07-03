@@ -1,68 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>页面内容</title>
     <script src="vendor/jquery-1.11.2.min.js"></script>
     <script src="vendor/vue.min.js"></script>
     <style>
-        *{
+        * {
             padding: 0;
             margin: 0;
         }
-        .body{
+
+        .body {
             /*border: 1px solid gainsboro;*/
             border-radius: 10px;
-            background:#FFFFFF url("./img/linkeddb-bg.png")  repeat left;
+            background: #FFFFFF url("./img/linkeddb-bg.png") repeat left;
             position: absolute;
             height: 100%;
             width: 100%;
             display: flex;
             flex-direction: column;
         }
-        .header{
+
+        .header {
             text-align: center;
             margin: 10px;
         }
+
         article {
             flex: 1;
         }
+
         .content {
             height: 100%;
         }
-        .collecting{
+
+        .collecting {
             width: 100%;
             height: 100%;
             position: relative;
         }
-        .collecting  .process-con{
+
+        .collecting .process-con {
             position: absolute;
             width: 200px;
             height: 50px;
-            top:100px;
+            top: 100px;
             left: 50%;
             margin-left: -100px;
         }
-        .process-con p{
+
+        .process-con p {
             padding-left: 20px;
         }
-        .process-con .process{
+
+        .process-con .process {
             margin: 10px;
             width: 100%;
             height: 30px;
-            background: url("img/loading.gif") no-repeat ;
+            background: url("img/loading.gif") no-repeat;
         }
-        .content .btns{
+
+        .content .btns {
             height: 100%;
         }
-        .content .btn-div{
+
+        .content .btn-div {
             width: 50%;
-            height: 50%;
+            height: 30%;
             box-sizing: border-box;
-            padding:30px 10px;
+            padding: 30px 10px;
             display: inline-block;
         }
-        .content .btn-collect{
+
+        .content .btn-collect {
             height: 100%;
             text-align: center;
             border: 1px solid #ccc;
@@ -70,44 +82,54 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor:pointer;
+            cursor: pointer;
         }
-        .content .btn-collect:hover{
+
+        .content .btn-collect:hover {
             background: #31c27c;
         }
-        .title{
+
+        .title {
             margin-bottom: 10px;
         }
-        .redFont{
+
+        .redFont {
             color: red;
         }
-        .confirmCon{
+
+        .confirmCon {
             margin: 10px;
             padding: 10px;
         }
-        ul{
+
+        ul {
             overflow: scroll;
             height: 287px;
-             width: 396px;
+            width: 396px;
         }
-        ul li{
+
+        ul li {
             margin: 10px;
         }
-        .btn-add{
+
+        .btn-add {
             color: green;
             width: 100%;
             height: 30px;
         }
-        .finalRes{
+
+        .finalRes {
             margin-top: 82px;
         }
-        .finalRes p{
+
+        .finalRes p {
             width: 100%;
             text-align: center;
             margin-top: 12px;
         }
     </style>
 </head>
+
 <body class="body">
     <header class="header">
         <h1>星关系一键采集</h1>
@@ -141,14 +163,14 @@
             <!-- 最终结果展示 -->
             <div v-if="pageIndex === 3" class="finalRes">
                 <p class="redFont">{{message}}</p>
-                <p><a v-bind:href="finalResObj.url" target="_blank">预览</a></p>
-                <p>名称：{{finalResObj.info}}</p>
-                <p>ID：{{finalResObj.neo_id}}</p>
+                <p v-if="finalResObj.url"><a v-bind:href="finalResObj.url" target="_blank">预览</a></p>
+                <p v-if="finalResObj.info">名称：{{finalResObj.info}}</p>
+                <p v-if="finalResObj.neo_id">ID：{{finalResObj.neo_id}}</p>
 
             </div>
         </div>
 
-        <div  class="collecting" v-if="isCollecting">
+        <div class="collecting" v-if="isCollecting">
             <div class="process-con">
                 <p>正在采集...</p>
                 <div class="process"></div>
@@ -157,4 +179,5 @@
     </article>
 </body>
 <script src="iframe.js"></script>
+
 </html>

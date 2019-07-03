@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p>{{ message }}</p>
+    <button v-on:click="myclick('xie')">http请求</button>
+</div>
+
+<script>
+
+//    常规独立使用
+//    axios.get('https://dy.linkeddb.com/video/play_auth/23342343/').then(function (resp) {
+//        console.log(resp);
+//    },function (resp) {
+//        console.log('err',resp);
+//    })
+
+    // 配合vue常规使用
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: "xiedajian"
+        },
+        methods:{
+            myclick(name){
+                axios.get(`https://dy.linkeddb.com/video/play_auth/${name}/`).then(function (resp) {
+                    console.log(resp);
+                },function (resp) {
+                    console.log('err',resp);
+                })
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
