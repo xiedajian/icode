@@ -1,0 +1,33 @@
+{
+  "name": "vue2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "hooper": "^0.3.4",
+    "photo-sphere-viewer": "^4.6.1",
+    "vue": "^2.6.11",
+    "vue-circle-menu": "^1.1.1",
+    "vue-feedback-reaction": "^1.2.0",
+    "vue-grid-layout": "^2.3.12",
+    "vue-marquee-text-component": "^1.2.0",
+    "vue-moveable": "^1.8.11",
+    "vue-router": "^3.2.0",
+    "vue-smart-widget": "^0.6.1",
+    "vue-swing": "^0.0.10",
+    "vuex": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.15",
+    "@vue/cli-plugin-router": "~4.5.15",
+    "@vue/cli-plugin-vuex": "~4.5.15",
+    "@vue/cli-service": "~4.5.15",
+    "less": "^4.1.2",
+    "less-loader": "^7.3.0",
+    "vue-template-compiler": "^2.6.11"
+  }
+}
