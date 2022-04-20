@@ -6,7 +6,7 @@
   "dependencies": {
     "d3": "^4.13.0",
     "express": "^4.16.3",
-    "jquery": "^1.12.4"
+    "jquery": "^3.5.0"
   },
   "devDependencies": {
     "autoprefixer": "^8.6.4",
