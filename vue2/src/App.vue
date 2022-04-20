@@ -40,6 +40,7 @@ body {
     color: #fff;
     display: flex;
     flex-direction: column;
+    line-height: 1.5;
   }
   .main {
     flex: 1;

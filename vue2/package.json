@@ -8,8 +8,11 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "echarts": "^5.3.2",
     "hooper": "^0.3.4",
+    "lodash": "^4.17.21",
     "photo-sphere-viewer": "^4.6.1",
+    "resize-detector": "^0.3.0",
     "vue": "^2.6.11",
     "vue-circle-menu": "^1.1.1",
     "vue-feedback-reaction": "^1.2.0",

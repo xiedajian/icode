@@ -14,6 +14,8 @@ let navs = [
   'vue-circle-menu',
   'vue-feedback-reaction',
   'hooper',
+  'resize-detector',
+  'echarts',
 ]
 
 const routes = [
