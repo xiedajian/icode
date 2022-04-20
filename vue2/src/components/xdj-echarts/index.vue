@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import * as Echarts from "./echarts.min.js";
-// import * as Echarts from "echarts";
+// import * as Echarts from "./echarts.min.js";
+import * as Echarts from "echarts";
 import ResizeDetector from "../ResizeDetector";
 
 export default {
