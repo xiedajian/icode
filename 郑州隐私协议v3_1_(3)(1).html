@@ -5,6 +5,7 @@
 <meta charset="utf-8"/>
 <meta name="generator" content="pdf2htmlEX"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"/>
 <style type="text/css">
 /*! 
  * Base CSS for pdf2htmlEX
@@ -553,6 +554,24 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
 <title></title>
 </head>
 <body>
+<style type="text/css">
+/* Mobile layout overrides: keep full content, remove horizontal scroll */
+@media screen and (max-width: 900px) {
+  html, body {
+    overflow-x: hidden !important;
+  }
+  #sidebar {
+    display: none !important;
+  }
+  #page-container {
+    position: relative;
+    left: 0 !important;
+    right: 0 !important;
+    overflow-x: hidden !important;
+  }
+}
+</style>
+<script>(function(){function scaleContent(){try{var pages=document.querySelectorAll('.pf');if(!pages.length)return;var firstPage=pages[0];var pageContainers=document.querySelectorAll('.pc');var originalWidth=595;var viewportWidth=document.documentElement.clientWidth||window.innerWidth;var scale=Math.min(1,viewportWidth/originalWidth);pages.forEach(function(page){page.style.width=originalWidth*scale+'px';page.style.height=842*scale+'px';page.style.margin='0 auto';});pageContainers.forEach(function(container){container.style.transformOrigin='0 0';container.style.webkitTransformOrigin='0 0';container.style.transform='scale('+scale+')';container.style.webkitTransform='scale('+scale+')';});document.documentElement.style.overflowX='hidden';document.body.style.overflowX='hidden';}catch(e){}}function debounceScale(){clearTimeout(window.scaleTimer);window.scaleTimer=setTimeout(scaleContent,100);}window.addEventListener('load',function(){setTimeout(scaleContent,200);});window.addEventListener('resize',debounceScale);window.addEventListener('orientationchange',function(){setTimeout(debounceScale,300);});})();</script>
 <div id="sidebar">
 <div id="outline">
 </div>
